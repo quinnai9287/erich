@@ -1,0 +1,143 @@
+@@include('_head-meta.html') 
+		<main id="vueapp" >
+			@@include('_navbar.html') 
+			<section class="section">
+				<div class="container">
+					<div class="ert-btn-container">
+						<a class="arrow-btn left" href=""></a>
+					</div>
+					<article class="ert-article-container">
+						<div class="ert-article-pictures"></div>
+						<div class="ert-article">
+							<div class="title">黑天使巧克力捲（黑天使巧克力生乳捲）</div>
+							<div class="subtitle">1入 / $ 65元</div>
+					          <div class="card-tags">
+					          	<small>長時間低溫發酵</small>
+					          	<small>牧場頂級鮮乳</small>
+					          	<small>天然液種</small>
+					          	<small>特惠八折</small>
+					          	<small>單一地址滿6000元免運</small>
+					          </div>
+							<div class="content">
+								<p>嚴選四重溪紅仁鴨蛋黃，味道更升級!<br>北迴歸線以南的烈日催熟了土鳳梨，在四重溪裡走跳的鴨子孕育出健康的鴨蛋。南台灣美麗的自然與人文交揉出50年代的回憶，用最好的食材來詮釋你我心中最難忘的傳統滋味！</p>
+								<p>堅持100%純鳳梨的口感，讓內餡帶有細緻纖維，更透著金黃色澤，來自屏東四重溪的鴨蛋黃，堅持1500隻鴨子野放飼養，蛋黃偏橙紅色且綿密細緻，透著如晚霞般的绯红之色。</p>
+								<p><b>原料： </b><br>餅皮 - 麵粉、奶粉、奶油、蛋、四重溪鹹鴨蛋黃內餡 - 3號土鳳梨、海藻糖、麥芽糖、四重溪鹹鴨蛋黃</p>
+								<p><b>葷素：</b>蛋奶素</p>
+								<p><b>熱量：</b>1份173.2cal / 40g，本產品12份(12顆)</p>
+								<p><b>保存期限：</b>30天</p>
+							</div>
+						</div>
+					</article>
+				</div>
+			</section>
+		    <section class="section bg-grey">
+		      <div class="container">
+		        <div class="ert-cards-group">
+					<div class="col-6 col-md-4" v-for="(item,index) in products">
+						<div class="card">
+				          <a class="card-img-outer" href="#">
+				              <img :src="'https://erich-t.blockcode.com.tw'+ item.productPicture.urls" alt="Image" class="card-img"></img>
+				          </a>
+				          <a class="card-title-link" href="#"><h4 class="card-title">${ item.productTitle }</h4></a>
+				          <p class="card-summary">${ item.productPrice }</p>
+			          	</div>
+					</div>
+		        </div>
+		      </div>
+		    </section>
+		    <section class="section">
+		    	<div class="container">
+		    		<div class="section-title large-space">其他商品分類</div>
+		    	</div>
+		    </section>
+			@@include('_footer.html') 
+		</main>
+
+		@@include('_footjs.html') 
+
+		<script type="text/javascript" src="/ERICHWeb/libs/slick.min.js"></script>
+
+		<script>
+			//set api uri
+			const URI = 'https://erich-t.blockcode.com.tw/api/graphql'
+			const METHOD = 'POST'
+
+			let gql = `query GHQProductItemsByCategoryID($parameters: String!) {
+					    getProductItemsByCategoryID(parameters: $parameters) {
+					        productTitle
+					        productPicture {
+					        urls(first: 1)
+					        }
+					        productPrice
+					        productCategory {
+					        termContentItems {
+					            displayText
+					        }
+					        }
+					    }
+				    }`
+
+			let _variable = { "parameters": "{\"TermContentItemId\": \"4dg4mksctmmhf1g5hfsx6x99nm\"}" }
+
+			let initVue = function(data){
+
+				var ProductSwitcher = Vue.component("ProductSwitcher", {
+					props:['title'],
+				  	template: `
+					    <div class="ert-product-list-switcher">
+					      <a class="switch-prev arrow-btn left" href="#">熱門商品</a>
+					      <div class="title"> {{ title }} </div>
+					      <a class="switch-next arrow-btn right" href="#">麵包</a>
+					    </div>
+					  `
+				});
+
+
+				var vm = new Vue({
+				  el: '#vueapp',
+				  delimiters: ['${', '}'],
+				  components:{
+				  	"product-switcher":ProductSwitcher
+				  },
+				  data(){
+				  	return{
+				  		titletxt:'蛋糕',
+				  		products:[]
+				  	}
+				  },
+				  mounted(){
+				  	console.log(this)
+				  }
+				});
+
+				vm.products = data
+
+
+			}
+
+			fetch(URI, {
+				method: METHOD, 
+				body: JSON.stringify({ query:gql , variables: _variable }),
+				headers: new Headers({ 'Content-Type': 'application/json'})
+
+			}).then(function(response) {
+				console.log('res=',response)
+			  	//處理 response
+			  	return response.json()
+
+  			}).then(function(j) {
+
+  				console.log(j)
+
+  				let _data = j.data.getProductItemsByCategoryID
+  				// _data = j.data
+  				initVue(_data)
+
+  			}).catch(function(err) {
+    			
+    			console.log(err)
+			})
+
+
+		</script>
+@@include('_html-foot.html') 

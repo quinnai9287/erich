@@ -1,0 +1,119 @@
+@import 'variables';
+@import 'reset';
+@import 'app/navbar';
+@import 'app/footer';
+@import 'app/cards';
+@import 'app/buttons';
+@import 'app/carousel';
+@import 'app/article';
+
+body{
+	font-family: 'Noto Sans TC',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+
+a{
+	&:hover,&:focus{
+		text-decoration: none;
+	}
+}
+
+main{
+	padding-top:120px;
+	&.index-navbar-hollow{
+		padding-top:0
+	}
+}
+
+section{
+	position:relative;
+}
+
+.collapse-menu{
+	visibility: hidden;
+	height:0px;
+	overflow-y: hidden;
+	transition:height 1s  ease-out;
+	&.active{
+		visibility: visible;
+		height: auto;
+	}
+}
+
+.section{
+	text-align: center;
+	padding:60px 0;
+	&.bg-grey{
+		background-color: #f4f4f4
+	}
+}
+.section-title{
+	font-size: 28px;
+	color:$ert-red;
+	margin-bottom: 60px;
+	line-height: 1;
+	font-weight: bold;
+	&.large-space{
+		margin-top:40px;
+		margin-bottom: 90px;
+	}
+	&.noto-thin{
+		font-size: 52px;
+		font-weight: 100;
+		color:#666;
+		+.section-subtitle{
+			font-weight: 200;
+			color:#666;
+			font-size: 26px;
+			margin-top:-50px;
+			margin-bottom: 60px;
+		}
+	}
+}
+
+.custom-image-layout{
+	display: flex;
+	flex-direction: column;
+	flex-wrap:wrap;
+	height: 761px;
+	>div{
+		flex: 1 1 50%;
+	    max-width: 50%;
+	    position: relative;
+	    max-height: 50%;
+	    &:last-child{
+	    	max-height: none;
+	    }
+	}
+	img{
+	    top:0;
+	    left:0;
+	    width: 100%;
+	    height: 100%;
+	    position:absolute;
+	    object-fit: cover;
+	}
+}
+
+.ert-product-list-switcher{
+	padding:1rem;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 40px;
+	margin-bottom: 100px;
+	.title{
+		font-size: 28px;
+	    color: #d50032;
+	    line-height: 1;
+	    font-weight: 700;
+	}
+}
+
+.ert-btn-container{
+	margin-bottom:40px;
+}
+
+

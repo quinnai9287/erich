@@ -1,0 +1,109 @@
+//buttons.scss
+
+$primary-gradient: linear-gradient(180deg, #FF7C80 0%, $ert-red 100%);
+$primary-gradient-hover: linear-gradient(180deg, #ff6064 0%, #b12546 100%);
+
+.btn{
+	border-radius: 0;
+	font-size: 18px;
+	//
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+}
+
+.btn-lg{
+	width: 200px;
+	height: 50px;
+	font-size: 18px;
+}
+.btn-primary{
+	background-image: $primary-gradient;
+	border: 1px solid #FF7C80;	
+	color:#fff;
+	&:hover,&:focus{
+		color:#fff;
+		background-image: $primary-gradient-hover;
+	}
+}
+
+
+.ert-btns-group{
+	display: flex;
+	flex-direction: row;
+	flex-wrap:nowrap;
+	flex: 0 0 100%;
+	justify-content: center;
+	align-items: center;
+	.btn{
+		height: 70px;
+		margin:0 .35rem;
+		&:not(:hover){
+			background-color: #fff;
+		}
+	}
+}
+
+.btn-outline-primary{
+	font-size: 1.125rem;
+	padding:.5rem 2rem;
+	background-color:#fff;
+	color:$ert-red;
+	border:1px solid $ert-red;
+	&:hover,&:focus,&.active{
+		background-color:$ert-red;
+		color:#fff;
+	}
+}
+
+
+
+//arrow buttons
+
+.arrow-btn{
+	display: flex;
+	justify-content: center;
+	align-items:center;
+	color:$ert-red;
+	font-weight: 400;
+  	position: relative;
+	&:hover,&:focus{
+		color:#b12546;
+		&:before{
+			background-image: $primary-gradient-hover;
+		}
+	}
+	&:before{
+		display: inline-block;
+		content: "";
+		position: absolute;
+	  	height: 38px;
+	  	width: 38px;
+	  	border-radius: 50%;
+	  	transition: all 0.2s linear;
+	  	background-image: $primary-gradient;	
+	 }
+	&:after{
+		content: "";
+		position: absolute;
+		top:3px;
+		z-index: 1;
+		width:14px;
+		height:14px;
+		border-top: 2px solid #fff;
+		border-left: 2px solid #fff;
+		transform: rotate(45deg);
+	}
+	&.left{
+		padding-left:50px;
+		&:before{ left:0; }
+		&:after{ transform: rotate(-45deg); top:initial;left:14px; }
+	}
+	&.right{
+		padding-right:50px;
+		&:before{ right:0; }
+		&:after{ transform: rotate(135deg); top:initial;right:14px;  }
+	}
+}
+

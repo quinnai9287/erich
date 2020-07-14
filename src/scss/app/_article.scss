@@ -1,0 +1,53 @@
+//article.scss
+
+
+.ert-article-container{
+	display: flex;
+ 	>div{
+ 		flex:0 0 50%;
+ 	}
+}
+.ert-article{
+	text-align: left;
+	.title,.subtitle{color:#000;}
+	.title{
+		font-size: 40px;
+		margin-bottom: 1rem;
+	}
+	.subtitle{
+		font-size: 24px;
+		font-weight: 600;
+		margin-bottom: 1.5rem;
+	}
+	.card-tags{
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 3rem;
+		small{
+			font-size: 16px;padding: .25rem 1.5rem;
+			white-space: nowrap;
+			margin-bottom: .5rem
+		}
+	}
+	.content{
+		p{
+			font-size: 20px;
+			color:#666;
+			margin-bottom: 1.75rem;
+		}
+		b{
+			color:#000;
+		}
+	}
+
+	img{
+		width: 100%
+	}
+
+	blockquote{
+		color:$ert-red;
+		font-weight: 400;
+		border:2px solid $ert-red;
+		padding:1.5rem;
+	}
+}

@@ -1,0 +1,316 @@
+@@include('_head-meta.html') 
+		<main id="vueapp" class="index-navbar-hollow">
+			@@include('_navbar.html') 
+			<section class="ert-carousel-container">
+				<div class="ert-carousel slick" data-autoplay-speed="4000" data-autoplay="true" data-dots="true">
+					<div class="slide">
+						<div class="slide-img">
+							<picture>
+							    <img src="https://erich-t.blockcode.com.tw/media/1_Event/Banner/202071_200701_4.jpg"  alt="alt">
+							</picture>
+						</div>
+				      	<a href="https://erich-t.blockcode.com.tw/promotion/中秋永豐-值得您典藏" class="ert-carousel-caption">
+				      		<div class="title">用烘培拉近你我的關係</div>
+				      		<div class="subtitle">- 全系列商品使用天然食材，零人工添加物 -</div>
+				      		<div class="summary">加拿大頂級小麥粉 + 牧場3.7頂級鮮乳 + 天然酵母 + 職人堅持手工打造保水綿密的山形吐司，每日限量供應</div>
+				      	</a>
+					</div>
+					<div class="slide">
+						<div class="slide-img">
+							<picture>
+							    <img src="https://erich-t.blockcode.com.tw/media/1_Event/Banner/202071_200701_23.jpg"  alt="alt">
+							</picture>
+						</div>
+				      	<a href="https://erich-t.blockcode.com.tw/classroom/永豐牛奶吐司配方大公開" class="ert-carousel-caption">
+				      		<div class="title">用烘培拉近我們的距離</div>
+				      		<div class="subtitle">用烘培拉近我們的距離</div>
+				      		<div class="summary">加拿大頂級小麥粉 + 牧場3.7頂級鮮乳 + 天然酵母 + 職人堅持手工打造保水綿密的山形吐司，每日限量供應</div>
+				      	</a>
+					</div>
+				</div>
+				<a class="arrow-btn see-more-btn" href="javascript:;"></a>
+			</section>
+		    <section class="section">
+		      <div class="container">
+		        <div class="section-title large-space">近期活動</div>
+		        <div class="ert-cards-group">
+					<div class="col-6 col-md-4" v-for="ev in event">
+						<div class="card">
+				          <a class="card-img-outer" href="#">
+				              <img :src="'https://erich-t.blockcode.com.tw'+ ev.eventKVSQ.urls" alt="Image" class="card-img"></img>
+				          </a>
+
+				          <div class="card-cate">${ ev.eventDateBegin!=undefined ? '行銷活動' : '烘培教室' }</div>
+
+				          <a class="card-title-link" href="#"><h4 class="card-title">${ ev.eventTitle }</h4></a>
+				          <div class="card-time" v-if="ev.eventDateBegin != undefined">${ev.eventDateBegin} - ${ev.eventDateEnd}</div>
+
+				          
+				          <div class="card-tags" v-if="ev.eventTags != undefined">
+				          	<small v-for=" tags in ev.eventTags.termContentItems">${ tags.displayText }</small>
+				          </div>
+				          <p class="card-summary">${ ev.eventSummary }</p>
+
+				          <a class="card-link" :href="ev.path">閱讀更多</a>
+			          	</div>
+					</div>
+		        </div>
+		        <a href="#" class="btn btn-primary btn-lg">更多活動</a>
+		      </div>
+		    </section>
+		    <section class="section bg-grey">
+		      	<div class="container">
+		        	<div class="section-title large-space">最新商品</div>
+		        	<div class="section-title large-space">熱門商品</div>
+		        	<div class="section-title large-space">瀏覽商品</div>
+		        	<product-category :btns="taxonomy"></product-category>
+		        </div>
+		    </section>
+		    <section class="section">
+		    	<div class="container">
+		    		<div class="section-title noto-thin">${ about.aboutTitle }</div>
+		    		<div class="section-subtitle large-space">${ about.aboutSubtitle }</div>
+		    		<div class="custom-image-layout">
+		    			<div v-for="url in about.abountContentMedia"><img :src="'https://erich-t.blockcode.com.tw'+url" alt=""></div>
+		    		</div>
+		    	</div>
+		    </section>
+			@@include('_footer.html') 
+		</main>
+
+		@@include('_footjs.html') 
+
+		<script type="text/javascript" src="/ERICHWeb/libs/slick.min.js"></script>
+
+		<script type="text/javascript">
+
+			function fetchingAPI(option,object){
+
+				console.log( option , object )
+
+				return new Promise(( resolve , reject ) => {
+
+							fetch( option._uri, {
+
+								method: option._method, 
+								body: JSON.stringify({ query: object._gql , variables: object._variable }),
+								headers: new Headers( option._headers )
+
+							}).then(function(response) {
+
+							  	//處理 response
+							  	return response.json()
+
+				  			}).then(function(j) {
+
+				  				let data = j.data
+
+				  				resolve(data);
+
+				  			}).catch(function(err) {
+				    			
+				    			console.log(err)
+							})
+
+				  		}) 
+
+			}
+		</script>
+
+		<script>
+
+			function initVueApp(data){
+
+
+				console.log('### init vue app! ###')
+
+				//vue code
+				const ProductCategory = Vue.component("ProductCategory", {
+					props: {
+						btns: {
+						  type: Array,
+						  required: true
+						}
+					},
+					template: `
+						<div class="ert-btns-group">
+							<a v-for="i in btns " :href="i.path" class="btn btn-outline-primary">{{ i.displayText }}</a>
+						</div>`,
+				});
+
+				let vm = new Vue({
+				  el: '#vueapp',
+				  delimiters: ['${', '}'],
+				  components:{
+				  	"product-category": ProductCategory
+				  },
+				  data: {
+				  	message:'瀏覽商品',
+				    homePage:[],
+				    event:[],
+				    taxonomy:[],
+				    about:{
+				    	aboutTitle:'',
+				    	aboutSubtitle:'',
+				    	abountContentMedia:''
+				    },
+				    kv:[],
+				    slickinit:false
+				  },
+				  beforeMount(){
+
+				  	this.slickinit = true
+
+				  },
+				  mounted(){
+				  	console.log(this)
+
+				  	
+				  	const slick = $('.slick')
+			  		slick.slick({
+			  			dots: true,
+  						slidesToShow: 1,
+  						slidesToScroll: 1
+			  		})
+
+
+				  }
+				});
+
+				vm.about.aboutTitle = data.homePage[0].aboutTitle
+				vm.about.aboutSubtitle = data.homePage[0].aboutSubtitle
+				vm.about.abountContentMedia = data.homePage[0].abountContentMedia.urls
+
+				vm.kv = data.homePage[0].kV.contentItems
+				vm.event = data.event[0].list.contentItems
+				vm.taxonomy = data.taxonomy[0].taxonomy.contentItems
+
+			}
+
+			function initapp(){
+
+
+				//set up api options
+				let option = {
+
+					_uri:'https://erich-t.blockcode.com.tw/api/graphql',
+					_method:'POST',
+					_headers:{
+						'Content-Type': 'application/json'
+					}
+
+				}
+
+				let object = {
+
+					_gql: `query HomePage {
+						  # 主視覺
+						  homePage(first: 1) {
+						    kV {
+						      contentItems {
+						        ... on CarouselBanner {
+						          bannerContent
+						          bannerTitle
+						          bannerMedia {
+						            urls
+						          }
+						          contentLink {
+						            contentItems {
+						              ... on EventPost {
+						                path
+						              }
+						              ... on EventPost2 {
+						                path
+						              }
+						            }
+						          }
+						        }
+						      }
+						    }
+						    aboutTitle
+						    aboutSubtitle
+						    abountContentMedia {
+						      urls
+						    }
+						  }
+						  # 活動列表
+						  event {
+						    list {
+						      contentItems {
+						        published
+						        ... on EventPost {
+						          eventKVSQ {
+						            urls
+						          }
+						          eventTitle
+						          eventDateBegin
+						          eventDateEnd
+						          eventSummary
+						          path
+						        }
+						        ... on EventPost2 {
+						          eventKVSQ {
+						            urls
+						          }
+						          eventTitle
+						          eventSummary
+						          eventTags {
+						            termContentItems(first: 3) {
+						              displayText
+						            }
+						          }
+						          path
+						        }
+						      }
+						    }
+						  }
+						  # 商品分類按鈕
+						  taxonomy(where: {alias: {alias: "product-category"}}) {
+						    displayText
+						    alias {
+						      alias
+						    }
+						    taxonomy {
+						      contentItems {
+						        ... on Category {
+						          displayText
+						          path
+						        }
+						      }
+						    }
+						  }
+						}`,
+
+					_variable: { "parameters": "{\"TermContentItemId\": \"4dg4mksctmmhf1g5hfsx6x99nm\"}" }
+
+				}
+
+
+				//get api data
+				fetchingAPI(option,object).then( data => {
+
+					console.log("data=", data )
+
+					initVueApp(data)
+
+
+
+				})
+
+
+			}
+
+			initapp()
+
+		</script>
+
+		<script>
+
+
+
+
+
+
+
+		</script>
+@@include('_html-foot.html') 

@@ -1,0 +1,34 @@
+.ert-footer{
+	background-color: #d50032;
+	color:#fff;
+	min-height:318px;
+	padding:60px 0;
+	font-size: 14px;
+	text-align: left;
+	p{ margin-bottom: .5rem; }
+	>.container{
+		display: flex;
+		flex-direction: row;
+		flex-wrap:nowrap;
+		justify-content: center;
+		align-items: flex-start;
+	}
+}
+.ert-footer-links-group{
+	font-size: 18px;
+	list-style-type: none;
+	padding:0;
+	margin:0;
+	>li{
+		padding-bottom: 23px;
+	}
+	a{ color:#fff; }
+	margin-right: 60px
+}
+.ert-copyright{
+	font-size: 12px;
+	line-height: 27px;
+	padding:1rem 0;
+	background-color:#B11116;
+	color:#fff;
+}

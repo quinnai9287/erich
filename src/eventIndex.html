@@ -1,0 +1,164 @@
+@@include('_head-meta.html') 
+		<main id="vueapp" >
+			@@include('_navbar.html') 
+		    <section class="section">
+		      <div class="container">
+			    <div class="ert-product-list-switcher justify-content-center">
+			      <div class="title">活動</div>
+			    </div>
+		        <div class="ert-cards-group">
+					<div class="col-6 col-md-4" v-for="ev in events">
+						<div class="card">
+				          <a class="card-img-outer" href="/ERICHWeb/event.html">
+				              <img :src="'https://erich-t.blockcode.com.tw'+ ev.eventKVSQ.urls" alt="Image" class="card-img"></img>
+				          </a>
+
+				          <div class="card-cate">${ ev.eventDateBegin!=undefined ? '行銷活動' : '烘培教室' }</div>
+
+				          <a class="card-title-link" href="#"><h4 class="card-title">${ ev.eventTitle }</h4></a>
+				          <div class="card-time" v-if="ev.eventDateBegin != undefined">${ev.eventDateBegin} - ${ev.eventDateEnd}</div>
+
+				          
+				          <div class="card-tags" v-if="ev.eventTags != undefined">
+				          	<small v-for=" tags in ev.eventTags.termContentItems">${ tags.displayText }</small>
+				          </div>
+				          <p class="card-summary">${ ev.eventSummary }</p>
+
+				          <a class="card-link" :href="ev.path">閱讀更多</a>
+			          	</div>
+					</div>
+		        </div>
+		      </div>
+		    </section>
+			@@include('_footer.html') 
+		</main>
+
+		@@include('_footjs.html') 
+
+		<script type="text/javascript">
+
+			function fetchingAPI(option,object){
+
+				console.log( option , object )
+
+				return new Promise(( resolve , reject ) => {
+
+							fetch( option._uri, {
+
+								method: option._method, 
+								body: JSON.stringify({ query: object._gql , variables: object._variable }),
+								headers: new Headers( option._headers )
+
+							}).then(function(response) {
+
+							  	//處理 response
+							  	return response.json()
+
+				  			}).then(function(j) {
+
+				  				let data = j.data
+
+				  				resolve(data);
+
+				  			}).catch(function(err) {
+				    			
+				    			console.log(err)
+							})
+
+				  		}) 
+
+			}
+		</script>
+
+		<script>
+
+			function initVueApp(data){
+
+				console.log('data=',data)
+
+				var vm = new Vue({
+				  el: '#vueapp',
+				  delimiters: ['${', '}'],
+				  data(){
+				  	return{
+				  		events:[]
+				  	}
+				  },
+				  mounted(){
+				  	console.log(this)
+				  }
+				});
+
+				vm.events = data
+
+
+			}
+
+			function initapp(){
+
+				//set up api options
+				let option = {
+
+					_uri:'https://erich-t.blockcode.com.tw/api/graphql',
+					_method:'POST',
+					_headers:{
+						'Content-Type': 'application/json'
+					}
+
+				}
+
+				let object = {
+
+					_gql: `query HomePageEvent {
+						  event {
+						    list {
+						      contentItems {
+						        published
+						        ... on EventPost {
+						          eventKVSQ {
+						            urls
+						          }
+						          eventTitle
+						          eventDateBegin
+						          eventDateEnd
+						          eventSummary
+						          path
+						        }
+						        ... on EventPost2 {
+						          eventKVSQ {
+						            urls
+						          }
+						          eventTitle
+						          eventSummary
+						          eventTags {
+						            termContentItems(first: 3) {
+						              displayText
+						            }
+						          }
+						          path
+						        }
+						      }
+						    }
+						  }
+						}`,
+
+				}
+
+
+				//get api data
+				fetchingAPI(option,object).then( data => {
+
+					let _data = data.event[0].list.contentItems
+
+					initVueApp(_data)
+
+				})
+
+
+			}
+
+			initapp()
+
+
+		</script>
+@@include('_html-foot.html') 

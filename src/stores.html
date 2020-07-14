@@ -1,0 +1,139 @@
+@@include('_head-meta.html') 
+		<main id="vueapp" >
+			@@include('_navbar.html') 
+		    <section class="section">
+		      <div class="container">
+			    <div class="ert-product-list-switcher">
+			      <a class="switch-prev arrow-btn left" href="#">熱門商品</a>
+			      <div class="title"> 蛋糕 </div>
+			      <a class="switch-next arrow-btn right" href="#">麵包</a>
+			    </div>
+		        <div class="ert-cards-group">
+					<div class="col-6 col-md-4" v-for="(item,index) in products">
+						<div class="card">
+				          <a class="card-img-outer" href="#">
+				              <img :src="'https://erich-t.blockcode.com.tw'+ item.productPicture.urls" alt="Image" class="card-img"></img>
+				          </a>
+				          <a class="card-title-link" href="#"><h4 class="card-title">${ item.productTitle }</h4></a>
+				          <p class="card-summary">${ item.productPrice }</p>
+			          	</div>
+					</div>
+		        </div>
+		      </div>
+		    </section>
+			@@include('_footer.html') 
+		</main>
+
+		@@include('_footjs.html') 
+
+		<script type="text/javascript">
+
+			function fetchingAPI(option,object){
+
+				console.log( option , object )
+
+				return new Promise(( resolve , reject ) => {
+
+							fetch( option._uri, {
+
+								method: option._method, 
+								body: JSON.stringify({ query: object._gql , variables: object._variable }),
+								headers: new Headers( option._headers )
+
+							}).then(function(response) {
+
+							  	//處理 response
+							  	return response.json()
+
+				  			}).then(function(j) {
+
+				  				let data = j.data
+
+				  				resolve(data);
+
+				  			}).catch(function(err) {
+				    			
+				    			console.log(err)
+							})
+
+				  		}) 
+
+			}
+		</script>
+
+		<script>
+
+			function initVueApp(data){
+
+				console.log('### init vue app! ###')
+
+				let vm = new Vue({
+
+				  el: '#vueapp',
+				  delimiters: ['${', '}'],
+				  data(){
+				  	return{
+				  		products:[]
+				  	}
+				  },
+				  mounted(){
+				  	console.log(this)
+				  }
+				});
+
+				vm.products = data.getProductItemsByCategoryID
+
+			}
+
+			function initapp(){
+
+				//set up api options
+				let option = {
+
+					_uri:'https://erich-t.blockcode.com.tw/api/graphql',
+					_method:'POST',
+					_headers:{
+						'Content-Type': 'application/json'
+					}
+
+				}
+
+				let object = {
+
+					_gql: `query GHQProductItemsByCategoryID($parameters: String!) {
+						    getProductItemsByCategoryID(parameters: $parameters) {
+						        productTitle
+						        productPicture {
+						        urls(first: 1)
+						        }
+						        productPrice
+						        productCategory {
+						        termContentItems {
+						            displayText
+						        }
+						        }
+						    }
+
+					}`,
+
+					_variable: { "parameters": "{\"TermContentItemId\": \"4dg4mksctmmhf1g5hfsx6x99nm\"}" }
+
+				}
+
+
+				//get api data
+				fetchingAPI(option,object).then( data => {
+
+					console.log("data=", data )
+
+					initVueApp(data)
+
+				})
+
+
+			}
+
+			initapp()
+
+		</script>
+@@include('_html-foot.html') 
