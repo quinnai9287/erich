@@ -6,9 +6,13 @@
 @import 'app/buttons';
 @import 'app/carousel';
 @import 'app/article';
+@import 'app/stores';
 
 body{
 	font-family: 'Noto Sans TC',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+	&.lock-body{
+		overflow: hidden;
+	}
 }
 
 
@@ -19,7 +23,7 @@ a{
 }
 
 main{
-	padding-top:120px;
+	padding-top:114px;
 	&.index-navbar-hollow{
 		padding-top:0
 	}
@@ -42,31 +46,51 @@ section{
 
 .section{
 	text-align: center;
-	padding:60px 0;
+	padding:30px 0;
 	&.bg-grey{
 		background-color: #f4f4f4
+	}
+	padding-left:1rem;
+	padding-right:1rem;
+	@media screen and (min-width: $screen-tablet){
+		padding:60px 0;
 	}
 }
 .section-title{
 	font-size: 28px;
 	color:$ert-red;
-	margin-bottom: 60px;
+	margin-bottom: 30px;
 	line-height: 1;
-	font-weight: bold;
+	font-weight: 400;
 	&.large-space{
-		margin-top:40px;
-		margin-bottom: 90px;
+		margin-top:30px;
+		margin-bottom: 60px;
 	}
 	&.noto-thin{
-		font-size: 52px;
+		font-size: 40px;
+		line-height: 57px;
 		font-weight: 100;
 		color:#666;
 		+.section-subtitle{
 			font-weight: 200;
 			color:#666;
 			font-size: 26px;
-			margin-top:-50px;
+			margin-top:-25px;
+			margin-bottom: 30px;
+		}
+	}
+	@media screen and (min-width: $screen-tablet){
+		margin-bottom: 60px;
+		&.large-space{
+			margin-top:0;
 			margin-bottom: 60px;
+		}
+		&.noto-thin{
+			font-size: 52px;
+			+.section-subtitle{
+				margin-top:-50px;
+				margin-bottom: 60px;
+			}
 		}
 	}
 }
@@ -75,14 +99,15 @@ section{
 	display: flex;
 	flex-direction: column;
 	flex-wrap:wrap;
-	height: 761px;
+	height:222px;
 	>div{
 		flex: 1 1 50%;
 	    max-width: 50%;
 	    position: relative;
-	    max-height: 50%;
+
 	    &:last-child{
-	    	max-height: none;
+			flex: 1 1 100%;
+		    max-width: 100%;
 	    }
 	}
 	img{
@@ -93,27 +118,89 @@ section{
 	    position:absolute;
 	    object-fit: cover;
 	}
+	@media screen and (min-width: $screen-tablet){
+		height:500px;
+		>div{
+			flex: 1 1 50%;
+		    max-width: 50%;
+		    position: relative;
+		    max-height: 50%;
+		    &:last-child{
+		    	max-height: none;
+		    }
+		}
+	}
+	@media screen and (min-width: $screen-desktop-xs){
+		height: 761px;
+	}
 }
 
 .ert-product-list-switcher{
-	padding:1rem;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
 	align-items: center;
-	margin-top: 40px;
-	margin-bottom: 100px;
+    margin-top: 30px;
+    margin-bottom: 60px;
 	.title{
 		font-size: 28px;
 	    color: #d50032;
 	    line-height: 1;
 	    font-weight: 700;
 	}
+	@media screen and (min-width: $screen-tablet){
+		 margin-top:0;
+		.switch-prev{
+			>span{
+				position: absolute;
+		    	width: 100px;
+		    	left: 50px;
+		    	text-align: left;
+		    }
+		}
+		.switch-next{
+			>span{
+				position: absolute;
+			    width: 100px;
+			    right: 50px;
+			    text-align: right;
+			}
+		}
+	}
+	@media screen and (min-width: $screen-desktop-xs){
+		padding:1rem;
+		margin-top: 40px;
+		margin-bottom: 100px;
+	}
+	@media screen and (max-width: $screen-mobile){
+		.title{
+			max-width: 200px;
+		}
+		.switch-prev,.switch-next{
+			>span{ display: none }
+		}
+	}
+	
 }
 
 .ert-btn-container{
-	margin-bottom:40px;
+	margin-bottom:60px;
+	@media screen and (max-width: $screen-mobile){
+	    margin-bottom: 50px;
+   		margin-top: 30px;
+   	}
+}
+
+.iframe-video{
+	position:relative;
+	width: 100%;
+	padding-bottom:56.25%;
+	iframe{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
 }
 
 

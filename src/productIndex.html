@@ -4,14 +4,14 @@
 		    <section class="section">
 		      <div class="container">
 			    <div class="ert-product-list-switcher">
-			      <a class="switch-prev arrow-btn left" href="#">熱門商品</a>
+			      <a class="switch-prev arrow-btn left" href="#"><span>熱門商品</span></a>
 			      <div class="title"> 蛋糕 </div>
-			      <a class="switch-next arrow-btn right" href="#">麵包</a>
+			      <a class="switch-next arrow-btn right" href="#"><span>麵包</span></a>
 			    </div>
 		        <div class="ert-cards-group">
-					<div class="col-6 col-md-4" v-for="(item,index) in products">
+					<div class="col-6 col-lg-4" v-for="(item,index) in products">
 						<div class="card">
-				          <a class="card-img-outer" href="#">
+				          <a class="card-img-outer" href="/ERICHWeb/product.html">
 				              <img :src="'https://erich-t.blockcode.com.tw'+ item.productPicture.urls" alt="Image" class="card-img"></img>
 				          </a>
 				          <a class="card-title-link" href="#"><h4 class="card-title">${ item.productTitle }</h4></a>
@@ -20,6 +20,12 @@
 					</div>
 		        </div>
 		      </div>
+		    </section>
+		    <section class="section bg-grey">
+		    	<div class="container">
+		        	<div class="section-title ">其他商品分類</div>
+		        	<product-category :btns="taxonomy"></product-category>
+		    	</div>
 		    </section>
 			@@include('_footer.html') 
 		</main>
@@ -30,7 +36,7 @@
 
 			function fetchingAPI(option,object){
 
-				console.log( option , object )
+				//console.log( option , object )
 
 				return new Promise(( resolve , reject ) => {
 
@@ -63,27 +69,40 @@
 
 		<script>
 
-			function initVueApp(data){
+			//vue code
+			const ProductCategory = Vue.component("ProductCategory", {
+				props: {
+					btns: {
+					  type: Array,
+					  required: true
+					}
+				},
+				template: `
+					<div class="ert-btns-group">
+						<a v-for="i in btns " :href="i.path" class="btn btn-outline-primary">{{ i.displayText }}</a>
+					</div>`,
+			});
 
-				console.log('### init vue app! ###')
+			let vm = new Vue({
 
-				let vm = new Vue({
+			  el: '#vueapp',
+			  delimiters: ['${', '}'],
+			  components:{
+			  	"product-category": ProductCategory
+			  },
+			  data(){
+			  	return{
+			  		products:[],
+			  		taxonomy:[]
+			  	}
+			  },
+			  mounted(){
+			  	console.log(this)
+			  }
+			});
 
-				  el: '#vueapp',
-				  delimiters: ['${', '}'],
-				  data(){
-				  	return{
-				  		products:[]
-				  	}
-				  },
-				  mounted(){
-				  	console.log(this)
-				  }
-				});
 
-				vm.products = data.getProductItemsByCategoryID
-
-			}
+			console.log('### init vue app! ###')
 
 			function initapp(){
 
@@ -98,7 +117,7 @@
 
 				}
 
-				let object = {
+				let products = {
 
 					_gql: `query GHQProductItemsByCategoryID($parameters: String!) {
 						    getProductItemsByCategoryID(parameters: $parameters) {
@@ -120,16 +139,44 @@
 
 				}
 
+				let taxonomy = {
+
+						_gql: `query{
+						  # 商品分類按鈕
+						  taxonomy(where: {alias: {alias: "product-category"}}) {
+						    displayText
+						    alias {
+						      alias
+						    }
+						    taxonomy {
+						      contentItems {
+						        ... on Category {
+						          displayText
+						          path
+						        }
+						      }
+						    }
+						  }
+						}`,
+
+				}
 
 				//get api data
-				fetchingAPI(option,object).then( data => {
+				fetchingAPI(option,products).then( data => {
 
 					console.log("data=", data )
 
-					initVueApp(data)
+					vm.products = data.getProductItemsByCategoryID
 
 				})
 
+				fetchingAPI(option,taxonomy).then( data => {
+
+					console.log("data=", data.taxonomy[0].taxonomy.contentItems )
+
+					vm.taxonomy = data.taxonomy[0].taxonomy.contentItems
+					
+				})
 
 			}
 

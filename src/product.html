@@ -7,7 +7,14 @@
 						<a class="arrow-btn left" href=""></a>
 					</div>
 					<article class="ert-article-container">
-						<div class="ert-article-pictures"></div>
+						<div class="ert-article-pictures">
+							<div class="pictures-container slick">
+								<div class="slide"><img src="/ERICHWeb/img/product/product_01.jpg" alt=""></div>
+								<div class="slide"><img src="/ERICHWeb/img/product/product_02.jpg" alt=""></div>
+								<div class="slide"><img src="/ERICHWeb/img/product/product_03.jpg" alt=""></div>
+								<div class="slide"><img src="/ERICHWeb/img/product/product_04.jpg" alt=""></div>
+							</div>
+						</div>
 						<div class="ert-article">
 							<div class="title">黑天使巧克力捲（黑天使巧克力生乳捲）</div>
 							<div class="subtitle">1入 / $ 65元</div>
@@ -32,8 +39,8 @@
 			</section>
 		    <section class="section bg-grey">
 		      <div class="container">
-		        <div class="ert-cards-group">
-					<div class="col-6 col-md-4" v-for="(item,index) in products">
+		        <div class="ert-cards-group filter-first-2">
+					<div class="col-6 col-lg-4" v-for="(item,index) in products">
 						<div class="card">
 				          <a class="card-img-outer" href="#">
 				              <img :src="'https://erich-t.blockcode.com.tw'+ item.productPicture.urls" alt="Image" class="card-img"></img>
@@ -47,7 +54,8 @@
 		    </section>
 		    <section class="section">
 		    	<div class="container">
-		    		<div class="section-title large-space">其他商品分類</div>
+		    		<div class="section-title">其他商品分類</div>
+		        	<product-category :btns="taxonomy"></product-category>
 		    	</div>
 		    </section>
 			@@include('_footer.html') 
@@ -57,86 +65,178 @@
 
 		<script type="text/javascript" src="/ERICHWeb/libs/slick.min.js"></script>
 
+		<script type="text/javascript">
+
+			function fetchingAPI(option,object){
+
+				//console.log( option , object )
+
+				return new Promise(( resolve , reject ) => {
+
+							fetch( option._uri, {
+
+								method: option._method, 
+								body: JSON.stringify({ query: object._gql , variables: object._variable }),
+								headers: new Headers( option._headers )
+
+							}).then(function(response) {
+
+							  	//處理 response
+							  	return response.json()
+
+				  			}).then(function(j) {
+
+				  				let data = j.data
+
+				  				resolve(data);
+
+				  			}).catch(function(err) {
+				    			
+				    			console.log(err)
+							})
+
+				  		}) 
+
+			}
+		</script>
+
+
 		<script>
-			//set api uri
-			const URI = 'https://erich-t.blockcode.com.tw/api/graphql'
-			const METHOD = 'POST'
 
-			let gql = `query GHQProductItemsByCategoryID($parameters: String!) {
-					    getProductItemsByCategoryID(parameters: $parameters) {
-					        productTitle
-					        productPicture {
-					        urls(first: 1)
-					        }
-					        productPrice
-					        productCategory {
-					        termContentItems {
-					            displayText
-					        }
-					        }
-					    }
-				    }`
-
-			let _variable = { "parameters": "{\"TermContentItemId\": \"4dg4mksctmmhf1g5hfsx6x99nm\"}" }
-
-			let initVue = function(data){
-
-				var ProductSwitcher = Vue.component("ProductSwitcher", {
-					props:['title'],
-				  	template: `
-					    <div class="ert-product-list-switcher">
-					      <a class="switch-prev arrow-btn left" href="#">熱門商品</a>
-					      <div class="title"> {{ title }} </div>
-					      <a class="switch-next arrow-btn right" href="#">麵包</a>
-					    </div>
-					  `
-				});
+			//vue code
+			const ProductCategory = Vue.component("ProductCategory", {
+				props: {
+					btns: {
+					  type: Array,
+					  required: true
+					}
+				},
+				template: `
+					<div class="ert-btns-group">
+						<a v-for="i in btns " :href="i.path" class="btn btn-outline-primary">{{ i.displayText }}</a>
+					</div>`,
+			});
 
 
-				var vm = new Vue({
-				  el: '#vueapp',
-				  delimiters: ['${', '}'],
-				  components:{
-				  	"product-switcher":ProductSwitcher
-				  },
-				  data(){
-				  	return{
-				  		titletxt:'蛋糕',
-				  		products:[]
-				  	}
-				  },
-				  mounted(){
-				  	console.log(this)
-				  }
-				});
+			let vm = new Vue({
+			  el: '#vueapp',
+			  delimiters: ['${', '}'],
+			  components:{
+			  	"product-category": ProductCategory
+			  },
+			  data(){
+			  	return{
+			  		products:[],
+			  		taxonomy:[]
+			  	}
+			  },
+			  mounted(){
+			  	console.log(this)
+			  }
+			});
 
-				vm.products = data
+			function initapp(){
 
+				//set up api options
+				let option = {
+
+					_uri:'https://erich-t.blockcode.com.tw/api/graphql',
+					_method:'POST',
+					_headers:{
+						'Content-Type': 'application/json'
+					}
+
+				}
+
+				let products = {
+
+					_gql: `query GHQProductItemsByCategoryID($parameters: String!) {
+						    getProductItemsByCategoryID(parameters: $parameters) {
+						        productTitle
+						        productPicture {
+						        urls(first: 1)
+						        }
+						        productPrice
+						        productCategory {
+						        termContentItems {
+						            displayText
+						        }
+						        }
+						    }
+
+					}`,
+
+					_variable: { "parameters": "{\"TermContentItemId\": \"4dg4mksctmmhf1g5hfsx6x99nm\"}" }
+
+				}
+
+				let taxonomy = {
+
+						_gql: `query{
+						  # 商品分類按鈕
+						  taxonomy(where: {alias: {alias: "product-category"}}) {
+						    displayText
+						    alias {
+						      alias
+						    }
+						    taxonomy {
+						      contentItems {
+						        ... on Category {
+						          displayText
+						          path
+						        }
+						      }
+						    }
+						  }
+						}`,
+
+				}
+
+				//get api data
+				fetchingAPI(option,products).then( data => {
+
+					console.log("data=", data )
+
+					vm.products = data.getProductItemsByCategoryID
+
+				})
+
+				fetchingAPI(option,taxonomy).then( data => {
+
+					console.log("data=", data.taxonomy[0].taxonomy.contentItems )
+
+					vm.taxonomy = data.taxonomy[0].taxonomy.contentItems
+					
+				})
 
 			}
 
-			fetch(URI, {
-				method: METHOD, 
-				body: JSON.stringify({ query:gql , variables: _variable }),
-				headers: new Headers({ 'Content-Type': 'application/json'})
+			initapp()
 
-			}).then(function(response) {
-				console.log('res=',response)
-			  	//處理 response
-			  	return response.json()
 
-  			}).then(function(j) {
+			//other codes
+			const $slick = $('.slick')
 
-  				console.log(j)
+			let slickOptions = {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+		        mobileFirst: true,
+		        arrows: false,
+		        dots: true,
+		        responsive: [
+		            {
+		                breakpoint:992,
+		                settings: 'unslick'
+		            }
+		        ]
+			}
 
-  				let _data = j.data.getProductItemsByCategoryID
-  				// _data = j.data
-  				initVue(_data)
+			$slick.slick(slickOptions)
 
-  			}).catch(function(err) {
-    			
-    			console.log(err)
+			$(window).resize(function(){
+				$slick.slick('resize');
 			})
+
 
 
 		</script>

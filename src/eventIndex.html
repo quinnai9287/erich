@@ -7,7 +7,7 @@
 			      <div class="title">活動</div>
 			    </div>
 		        <div class="ert-cards-group">
-					<div class="col-6 col-md-4" v-for="ev in events">
+					<div class="col-6 col-lg-4" v-for="ev in events">
 						<div class="card">
 				          <a class="card-img-outer" href="/ERICHWeb/event.html">
 				              <img :src="'https://erich-t.blockcode.com.tw'+ ev.eventKVSQ.urls" alt="Image" class="card-img"></img>
@@ -30,6 +30,12 @@
 		        </div>
 		      </div>
 		    </section>
+		    <section class="section bg-grey">
+		    	<div class="container">
+		        	<div class="section-title">瀏覽商品</div>
+		        	<product-category :btns="taxonomy"></product-category>
+		    	</div>
+		    </section>
 			@@include('_footer.html') 
 		</main>
 
@@ -39,7 +45,7 @@
 
 			function fetchingAPI(option,object){
 
-				console.log( option , object )
+				//console.log( option , object )
 
 				return new Promise(( resolve , reject ) => {
 
@@ -72,27 +78,36 @@
 
 		<script>
 
-			function initVueApp(data){
+			//vue code
+			const ProductCategory = Vue.component("ProductCategory", {
+				props: {
+					btns: {
+					  type: Array,
+					  required: true
+					}
+				},
+				template: `
+					<div class="ert-btns-group">
+						<a v-for="i in btns " :href="i.path" class="btn btn-outline-primary">{{ i.displayText }}</a>
+					</div>`,
+			});
 
-				console.log('data=',data)
-
-				var vm = new Vue({
-				  el: '#vueapp',
-				  delimiters: ['${', '}'],
-				  data(){
-				  	return{
-				  		events:[]
-				  	}
-				  },
-				  mounted(){
-				  	console.log(this)
-				  }
-				});
-
-				vm.events = data
-
-
-			}
+			let vm = new Vue({
+			  el: '#vueapp',
+			  delimiters: ['${', '}'],
+			  components:{
+			  	"product-category": ProductCategory
+			  },
+			  data(){
+			  	return{
+			  		events:[],
+			  		taxonomy:[],
+			  	}
+			  },
+			  mounted(){
+			  	console.log(this)
+			  }
+			});
 
 			function initapp(){
 
@@ -107,9 +122,9 @@
 
 				}
 
-				let object = {
+				let events = {
 
-					_gql: `query HomePageEvent {
+					_gql: `query{
 						  event {
 						    list {
 						      contentItems {
@@ -144,16 +159,43 @@
 
 				}
 
+				let taxonomy = {
 
+						_gql: `query{
+						  # 商品分類按鈕
+						  taxonomy(where: {alias: {alias: "product-category"}}) {
+						    displayText
+						    alias {
+						      alias
+						    }
+						    taxonomy {
+						      contentItems {
+						        ... on Category {
+						          displayText
+						          path
+						        }
+						      }
+						    }
+						  }
+						}`,
+
+				}
 				//get api data
-				fetchingAPI(option,object).then( data => {
+				fetchingAPI(option,events).then( data => {
 
-					let _data = data.event[0].list.contentItems
+					console.log("data=", data )
 
-					initVueApp(_data)
+					vm.events = data.event[0].list.contentItems
 
 				})
 
+				fetchingAPI(option,taxonomy).then( data => {
+
+					console.log("data=", data.taxonomy[0].taxonomy.contentItems )
+
+					vm.taxonomy = data.taxonomy[0].taxonomy.contentItems
+					
+				})
 
 			}
 

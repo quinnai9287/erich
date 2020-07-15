@@ -2,27 +2,69 @@
 
 
 .ert-article-container{
-	display: flex;
- 	>div{
- 		flex:0 0 50%;
+	display: block;
+ 	@media screen and (min-width: $screen-desktop-xs){
+	 	margin-left:-1.5rem;
+	 	margin-right: -1.5rem;
+ 		display: flex;
+	 	>div{
+	 		flex:1 1 50%;
+	 		padding:0 1.5rem;
+	 	}
  	}
+}
+.ert-article-pictures{
+	img{ width: 100%; margin-bottom: 2rem; border:1px solid #eee;}
+	.pictures-container{
+		position:relative;
+		display: block;
+		max-height: 722px;
+		overflow: hidden;
+		.slick-dots{
+			bottom:8%;
+		}
+		img{
+			margin-bottom: 1.5rem; 
+		}
+		@media screen and (min-width: $screen-desktop-xs){
+			margin:0 -.5rem;
+			display: flex;
+			flex-wrap: wrap;
+			.slide{
+				padding:0 .5rem;
+				flex:0 0 50%;
+				&:first-child{
+					flex:0 0 100%;
+				}
+			}
+			img{
+				margin-bottom: 1rem; 
+			}
+		}
+		@media screen and (max-width: 576px){
+			max-height:395px;
+			.slick-dots{
+				bottom:12%;
+			}
+		}
+	}
 }
 .ert-article{
 	text-align: left;
 	.title,.subtitle{color:#000;}
 	.title{
-		font-size: 40px;
+		font-size: 24px;
 		margin-bottom: 1rem;
 	}
 	.subtitle{
-		font-size: 24px;
-		font-weight: 600;
+		font-size: 18px;
+		font-weight: 400;
 		margin-bottom: 1.5rem;
 	}
 	.card-tags{
 		display: flex;
 		flex-wrap: wrap;
-		margin-bottom: 3rem;
+		margin-bottom: 1rem;
 		small{
 			font-size: 16px;padding: .25rem 1.5rem;
 			white-space: nowrap;
@@ -33,7 +75,7 @@
 		p{
 			font-size: 20px;
 			color:#666;
-			margin-bottom: 1.75rem;
+			margin-bottom: 1.5rem;
 		}
 		b{
 			color:#000;
@@ -49,5 +91,11 @@
 		font-weight: 400;
 		border:2px solid $ert-red;
 		padding:1.5rem;
+	}
+	@media screen and (min-width: $screen-tablet){
+		.title{ font-size: 40px; }
+		.subtitle{ font-size: 24px; }
+		.card-tags{ margin-bottom: 3rem; }
+		.content{ p{ margin-bottom: 1.75rem; } }
 	}
 }

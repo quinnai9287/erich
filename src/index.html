@@ -10,8 +10,8 @@
 							</picture>
 						</div>
 				      	<a href="https://erich-t.blockcode.com.tw/promotion/中秋永豐-值得您典藏" class="ert-carousel-caption">
-				      		<div class="title">用烘培拉近你我的關係</div>
-				      		<div class="subtitle">- 全系列商品使用天然食材，零人工添加物 -</div>
+				      		<div class="title">讓早午餐浪漫起來</div>
+				      		<div class="subtitle">- 用烘培拉近你我的關係 -</div>
 				      		<div class="summary">加拿大頂級小麥粉 + 牧場3.7頂級鮮乳 + 天然酵母 + 職人堅持手工打造保水綿密的山形吐司，每日限量供應</div>
 				      	</a>
 					</div>
@@ -28,13 +28,13 @@
 				      	</a>
 					</div>
 				</div>
-				<a class="arrow-btn see-more-btn" href="javascript:;"></a>
+				<a id="BtnSeeMore" class="arrow-btn see-more-btn" href="javascript:;"></a>
 			</section>
 		    <section class="section">
 		      <div class="container">
 		        <div class="section-title large-space">近期活動</div>
-		        <div class="ert-cards-group">
-					<div class="col-6 col-md-4" v-for="ev in event">
+		        <div class="ert-cards-group filter-first-3">
+					<div class="col-6 col-lg-4" v-for="ev in events">
 						<div class="card">
 				          <a class="card-img-outer" href="#">
 				              <img :src="'https://erich-t.blockcode.com.tw'+ ev.eventKVSQ.urls" alt="Image" class="card-img"></img>
@@ -60,9 +60,31 @@
 		    </section>
 		    <section class="section bg-grey">
 		      	<div class="container">
-		        	<div class="section-title large-space">最新商品</div>
-		        	<div class="section-title large-space">熱門商品</div>
-		        	<div class="section-title large-space">瀏覽商品</div>
+		        	<div class="section-title">最新商品</div>
+			        <div class="ert-cards-group">
+						<div class="col-6 col-lg-4" v-for="(item,index) in products">
+							<div class="card">
+					          <a class="card-img-outer" href="#">
+					              <img :src="'https://erich-t.blockcode.com.tw'+ item.productPicture.urls" alt="Image" class="card-img"></img>
+					          </a>
+					          <a class="card-title-link" href="#"><h4 class="card-title">${ item.productTitle }</h4></a>
+					          <p class="card-summary">${ item.productPrice }</p>
+				          	</div>
+						</div>
+			        </div>
+		        	<div class="section-title">熱門商品</div>
+			        <div class="ert-cards-group">
+						<div class="col-6 col-lg-4" v-for="(item,index) in products">
+							<div class="card">
+					          <a class="card-img-outer" href="#">
+					              <img :src="'https://erich-t.blockcode.com.tw'+ item.productPicture.urls" alt="Image" class="card-img"></img>
+					          </a>
+					          <a class="card-title-link" href="#"><h4 class="card-title">${ item.productTitle }</h4></a>
+					          <p class="card-summary">${ item.productPrice }</p>
+				          	</div>
+						</div>
+			        </div>
+		        	<div class="section-title ">瀏覽商品</div>
 		        	<product-category :btns="taxonomy"></product-category>
 		        </div>
 		    </section>
@@ -119,76 +141,68 @@
 
 		<script>
 
-			function initVueApp(data){
+			//vue code
+			const ProductCategory = Vue.component("ProductCategory", {
+				props: {
+					btns: {
+					  type: Array,
+					  required: true
+					}
+				},
+				template: `
+					<div class="ert-btns-group">
+						<a v-for="i in btns " :href="i.path" class="btn btn-outline-primary">{{ i.displayText }}</a>
+					</div>`,
+			});
+
+			let vm = new Vue({
+			  el: '#vueapp',
+			  delimiters: ['${', '}'],
+			  components:{
+			  	"product-category": ProductCategory
+			  },
+			  data: {
+			  	message:'瀏覽商品',
+			    homePage:[],
+			    events:[],
+			    taxonomy:[],
+			    about:{
+			    	aboutTitle:'',
+			    	aboutSubtitle:'',
+			    	abountContentMedia:''
+			    },
+			    kv:[],
+			    products:[]
+			  },
+			  beforeMount(){
+
+			  	this.slickinit = true
+
+			  },
+			  mounted(){
+			  	console.log(this)
+
+			  	
+			  	const slick = $('.slick')
+		  		slick.slick({
+		  			dots: true,
+						slidesToShow: 1,
+						slidesToScroll: 1
+		  		})
 
 
-				console.log('### init vue app! ###')
+				$('#BtnSeeMore').on('click',function(){
 
-				//vue code
-				const ProductCategory = Vue.component("ProductCategory", {
-					props: {
-						btns: {
-						  type: Array,
-						  required: true
-						}
-					},
-					template: `
-						<div class="ert-btns-group">
-							<a v-for="i in btns " :href="i.path" class="btn btn-outline-primary">{{ i.displayText }}</a>
-						</div>`,
-				});
+					$("html, body").animate({ scrollTop: $(this).offset().top - 112 }, 1000);
+					
+				})
 
-				let vm = new Vue({
-				  el: '#vueapp',
-				  delimiters: ['${', '}'],
-				  components:{
-				  	"product-category": ProductCategory
-				  },
-				  data: {
-				  	message:'瀏覽商品',
-				    homePage:[],
-				    event:[],
-				    taxonomy:[],
-				    about:{
-				    	aboutTitle:'',
-				    	aboutSubtitle:'',
-				    	abountContentMedia:''
-				    },
-				    kv:[],
-				    slickinit:false
-				  },
-				  beforeMount(){
+			  }
+			});
 
-				  	this.slickinit = true
-
-				  },
-				  mounted(){
-				  	console.log(this)
-
-				  	
-				  	const slick = $('.slick')
-			  		slick.slick({
-			  			dots: true,
-  						slidesToShow: 1,
-  						slidesToScroll: 1
-			  		})
-
-
-				  }
-				});
-
-				vm.about.aboutTitle = data.homePage[0].aboutTitle
-				vm.about.aboutSubtitle = data.homePage[0].aboutSubtitle
-				vm.about.abountContentMedia = data.homePage[0].abountContentMedia.urls
-
-				vm.kv = data.homePage[0].kV.contentItems
-				vm.event = data.event[0].list.contentItems
-				vm.taxonomy = data.taxonomy[0].taxonomy.contentItems
-
-			}
+			console.log('### init vue app! ###')
 
 			function initapp(){
-
 
 				//set up api options
 				let option = {
@@ -201,42 +215,50 @@
 
 				}
 
-				let object = {
+				//set up graphql object
 
-					_gql: `query HomePage {
-						  # 主視覺
-						  homePage(first: 1) {
-						    kV {
-						      contentItems {
-						        ... on CarouselBanner {
-						          bannerContent
-						          bannerTitle
-						          bannerMedia {
-						            urls
-						          }
-						          contentLink {
-						            contentItems {
-						              ... on EventPost {
-						                path
-						              }
-						              ... on EventPost2 {
-						                path
-						              }
-						            }
-						          }
-						        }
-						      }
-						    }
-						    aboutTitle
-						    aboutSubtitle
-						    abountContentMedia {
-						      urls
-						    }
-						  }
+				let homePage = {
+
+						_gql: `query{
+							# 主視覺
+							homePage(first: 1) {
+							    kV {
+							      contentItems {
+							        ... on CarouselBanner {
+							          bannerContent
+							          bannerTitle
+							          bannerMedia {
+							            urls
+							          }
+							          contentLink {
+							            contentItems {
+							              ... on EventPost {
+							                path
+							              }
+							              ... on EventPost2 {
+							                path
+							              }
+							            }
+							          }
+							        }
+							      }
+							    }
+							    aboutTitle
+							    aboutSubtitle
+							    abountContentMedia {
+							      urls
+							    }
+							}
+						}`
+				}
+
+				let events = {
+
+					_gql: `query {
 						  # 活動列表
-						  event {
+						  event{
 						    list {
-						      contentItems {
+						      contentItems (first: 4){
 						        published
 						        ... on EventPost {
 						          eventKVSQ {
@@ -264,6 +286,13 @@
 						      }
 						    }
 						  }
+						}`
+
+				}
+
+				let taxonomy = {
+
+						_gql: `query{
 						  # 商品分類按鈕
 						  taxonomy(where: {alias: {alias: "product-category"}}) {
 						    displayText
@@ -281,25 +310,61 @@
 						  }
 						}`,
 
-					_variable: { "parameters": "{\"TermContentItemId\": \"4dg4mksctmmhf1g5hfsx6x99nm\"}" }
+				}
+
+				let products = {
+
+					_gql:`query{
+						  productItem(first: 6) {
+						    productTitle
+						    productPicture {
+						      urls(first: 1)
+						    }
+						    productPrice
+						  }
+						}`
 
 				}
 
-
 				//get api data
-				fetchingAPI(option,object).then( data => {
+				fetchingAPI(option,homePage).then( data => {
 
 					console.log("data=", data )
 
-					initVueApp(data)
-
-
+					vm.about.aboutTitle = data.homePage[0].aboutTitle
+					vm.about.aboutSubtitle = data.homePage[0].aboutSubtitle
+					vm.about.abountContentMedia = data.homePage[0].abountContentMedia.urls
+					vm.kv = data.homePage[0].kV.contentItems
 
 				})
 
+				fetchingAPI(option,events).then( data => {
+
+					console.log("data=", data )
+
+					vm.events = data.event[0].list.contentItems
+
+				})
+
+				fetchingAPI(option,products).then( data => {
+
+					console.log("data=", data )
+
+					vm.products = data.productItem
+
+				})
+
+				fetchingAPI(option,taxonomy).then( data => {
+
+					console.log("data=", data.taxonomy[0].taxonomy.contentItems )
+
+					vm.taxonomy = data.taxonomy[0].taxonomy.contentItems
+					
+				})
 
 			}
 
+			
 			initapp()
 
 		</script>

@@ -6,6 +6,7 @@ function initNavbar(){
           navCollpaseHide = new Event('nav.collapse.hide');
 
     const navbar = $('.ert-navbar')
+    const body = document.getElementsByTagName("BODY")[0];
     let  navbarToggle, navbarCollpase, navbarClose;
 	let  threshhold = navbar.outerHeight()
 
@@ -42,11 +43,13 @@ function initNavbar(){
 
         if(!collapsed){
 
+            body.classList.add('lock-body')
         	toggle.classList.add('active')
             element.dispatchEvent(navCollpaseShow);
 
         }else{
 
+            body.classList.remove('lock-body')
         	toggle.classList.remove('active')
             element.dispatchEvent(navCollpaseHide);
         }
@@ -54,8 +57,6 @@ function initNavbar(){
     }
 
 	function handleNavLock(y){
-
-		console.log('scrilling',y,threshhold)
 
 		if( y > threshhold ){
 

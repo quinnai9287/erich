@@ -3,22 +3,59 @@
 			@@include('_navbar.html') 
 		    <section class="section">
 		      <div class="container">
-			    <div class="ert-product-list-switcher">
-			      <a class="switch-prev arrow-btn left" href="#">熱門商品</a>
-			      <div class="title"> 蛋糕 </div>
-			      <a class="switch-next arrow-btn right" href="#">麵包</a>
+			    <div class="ert-product-list-switcher justify-content-center">
+			      <div class="title"> 店鋪 </div>
 			    </div>
-		        <div class="ert-cards-group">
-					<div class="col-6 col-md-4" v-for="(item,index) in products">
-						<div class="card">
-				          <a class="card-img-outer" href="#">
-				              <img :src="'https://erich-t.blockcode.com.tw'+ item.productPicture.urls" alt="Image" class="card-img"></img>
-				          </a>
-				          <a class="card-title-link" href="#"><h4 class="card-title">${ item.productTitle }</h4></a>
-				          <p class="card-summary">${ item.productPrice }</p>
+		        <ul class="ert-store-group">
+					<li>
+						<div class="store">
+							<div class="store-info">
+								<div class="store-name">豐原創始店</div>
+								<p class="store-summary">永豐吐司牛奶創始店，成立於 2010 年，使用新鮮食材烘焙，在地化經營，新鮮烘焙傳遞台灣鄉土味，不論是大人或小孩都喜愛的一家麵包店。</p>
+								<p class="store-tag" data-text="營業時間：">11:00 - 19:00</p>
+								<p class="store-tag" data-text="服務專線："><span class="phone">0982-230-579</span></p>
+								<p class="store-tag" data-text="地址："><a class="address" href="https://goo.gl/maps/YQ7askUDZ9YjNBTcA" target="_blank">台中市北屯區水裡大連路1段61號</a></p>
+							</div>
+							<div class="store-map-container">
+								<div class="store-map">
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d233356.52437256277!2d120.63118452954474!3d23.953519199079576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346917ce1c0ad8ff%3A0x565f099f27f845!2zNDA25Y-w5Lit5biC5YyX5bGv5Y2A5aSn6YCj6Lev5LiA5q61NjHomZ8!5e0!3m2!1szh-TW!2stw!4v1594837548377!5m2!1szh-TW!2stw" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+								</div>
+							</div>
 			          	</div>
-					</div>
-		        </div>
+					</li>
+					<li>
+						<div class="store">
+							<div class="store-info">
+								<div class="store-name">豐原創始店</div>
+								<p class="store-summary">永豐吐司牛奶創始店，成立於 2010 年，使用新鮮食材烘焙，在地化經營，新鮮烘焙傳遞台灣鄉土味，不論是大人或小孩都喜愛的一家麵包店。</p>
+								<p class="store-tag" data-text="營業時間：">11:00 - 19:00</p>
+								<p class="store-tag" data-text="服務專線："><span class="phone">0982-230-579</span></p>
+								<p class="store-tag" data-text="地址："><a class="address" href="https://goo.gl/maps/YQ7askUDZ9YjNBTcA" target="_blank">台中市北屯區水裡大連路1段61號</a></p>
+							</div>
+							<div class="store-map-container">
+								<div class="store-map">
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d233356.52437256277!2d120.63118452954474!3d23.953519199079576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346917ce1c0ad8ff%3A0x565f099f27f845!2zNDA25Y-w5Lit5biC5YyX5bGv5Y2A5aSn6YCj6Lev5LiA5q61NjHomZ8!5e0!3m2!1szh-TW!2stw!4v1594837548377!5m2!1szh-TW!2stw" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+								</div>
+							</div>
+			          	</div>
+					</li>
+					<li>
+						<div class="store">
+							<div class="store-info">
+								<div class="store-name">豐原創始店</div>
+								<p class="store-summary">永豐吐司牛奶創始店，成立於 2010 年，使用新鮮食材烘焙，在地化經營，新鮮烘焙傳遞台灣鄉土味，不論是大人或小孩都喜愛的一家麵包店。</p>
+								<p class="store-tag" data-text="營業時間：">11:00 - 19:00</p>
+								<p class="store-tag" data-text="服務專線："><span class="phone">0982-230-579</span></p>
+								<p class="store-tag" data-text="地址："><a class="address" href="https://goo.gl/maps/YQ7askUDZ9YjNBTcA" target="_blank">台中市北屯區水裡大連路1段61號</a></p>
+							</div>
+							<div class="store-map-container">
+								<div class="store-map">
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d233356.52437256277!2d120.63118452954474!3d23.953519199079576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346917ce1c0ad8ff%3A0x565f099f27f845!2zNDA25Y-w5Lit5biC5YyX5bGv5Y2A5aSn6YCj6Lev5LiA5q61NjHomZ8!5e0!3m2!1szh-TW!2stw!4v1594837548377!5m2!1szh-TW!2stw" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+								</div>
+							</div>
+			          	</div>
+					</li>
+		        </ul>
 		      </div>
 		    </section>
 			@@include('_footer.html') 
@@ -26,114 +63,4 @@
 
 		@@include('_footjs.html') 
 
-		<script type="text/javascript">
-
-			function fetchingAPI(option,object){
-
-				console.log( option , object )
-
-				return new Promise(( resolve , reject ) => {
-
-							fetch( option._uri, {
-
-								method: option._method, 
-								body: JSON.stringify({ query: object._gql , variables: object._variable }),
-								headers: new Headers( option._headers )
-
-							}).then(function(response) {
-
-							  	//處理 response
-							  	return response.json()
-
-				  			}).then(function(j) {
-
-				  				let data = j.data
-
-				  				resolve(data);
-
-				  			}).catch(function(err) {
-				    			
-				    			console.log(err)
-							})
-
-				  		}) 
-
-			}
-		</script>
-
-		<script>
-
-			function initVueApp(data){
-
-				console.log('### init vue app! ###')
-
-				let vm = new Vue({
-
-				  el: '#vueapp',
-				  delimiters: ['${', '}'],
-				  data(){
-				  	return{
-				  		products:[]
-				  	}
-				  },
-				  mounted(){
-				  	console.log(this)
-				  }
-				});
-
-				vm.products = data.getProductItemsByCategoryID
-
-			}
-
-			function initapp(){
-
-				//set up api options
-				let option = {
-
-					_uri:'https://erich-t.blockcode.com.tw/api/graphql',
-					_method:'POST',
-					_headers:{
-						'Content-Type': 'application/json'
-					}
-
-				}
-
-				let object = {
-
-					_gql: `query GHQProductItemsByCategoryID($parameters: String!) {
-						    getProductItemsByCategoryID(parameters: $parameters) {
-						        productTitle
-						        productPicture {
-						        urls(first: 1)
-						        }
-						        productPrice
-						        productCategory {
-						        termContentItems {
-						            displayText
-						        }
-						        }
-						    }
-
-					}`,
-
-					_variable: { "parameters": "{\"TermContentItemId\": \"4dg4mksctmmhf1g5hfsx6x99nm\"}" }
-
-				}
-
-
-				//get api data
-				fetchingAPI(option,object).then( data => {
-
-					console.log("data=", data )
-
-					initVueApp(data)
-
-				})
-
-
-			}
-
-			initapp()
-
-		</script>
 @@include('_html-foot.html') 

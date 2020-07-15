@@ -22,20 +22,30 @@
 }
 .#{$projectName}-logo{
 	position:absolute;
+	z-index: 1000;
 	left:50%;
 	margin-left:-82px;
 	a{padding:0;padding-bottom: 6px;}
+	@media screen and (min-width: $screen-tablet){
+		z-index: initial;
+	}
 }
 .#{$projectName}-nav-links{
-	list-style-type: none;
-	padding:0;
-	margin:0;
-	display: flex;
-	flex-direction: row;
-	a{
-		color:#fff;
-		display: block;
-		padding:0 1rem;
+	display: none;
+	@media screen and (min-width: $screen-tablet){
+		list-style-type: none;
+		padding:0;
+		margin:0;
+		display: flex;
+		flex-direction: row;
+		font-size: 18px;
+	    position: relative;
+	    top: 12px;
+		a{
+			color:#fff;
+			display: block;
+			padding:0 1rem;
+		}	
 	}
 }
 .#{$projectName}-navbar-collapse{
@@ -46,20 +56,39 @@
 	padding-top:108px;
     position: absolute;
     top: 0;
-    left:-375px;
+    left:-100%;
     height: 100vh;
     overflow-y: auto;
-    width: 375px;
+    width: 100%;
     transition: transform 0.125s ease-in;
     &.active{
-    	transform: translateX(375px);
+    	transform: translateX(100%);
+    }
+    @media screen and (min-width: $screen-tablet){
+    	left:-375px;
+    	width: 375px;
+	    &.active{
+	    	transform: translateX(375px);
+	    }
+    }
+    @media screen and (min-width: $screen-desktop-xs){
+    	left:-375px;
+    	width: 375px;
+	    &.active{
+	    	transform: translateX(375px);
+	    }
+    }
+    .ert-logo{
+    	top:19px;
     }
 }
-$hamburger-width:20px;
+$hamburger-width:50px;
 .#{$projectName}-navbar-toggle {
   z-index: 100;
   width:$hamburger-width;
-  height:22px;  
+  height:50px;  
+  padding:13px;
+  margin-left:-13px;
   position: relative;
   cursor: pointer;
   background-color: transparent;
@@ -67,6 +96,8 @@ $hamburger-width:20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+  top:7px;
   &:focus{
     outline: none;
     box-shadow: none;
@@ -75,7 +106,7 @@ $hamburger-width:20px;
 .#{$projectName}-navbar-toggle span {
   position: relative;
   height:4px;
-  width:19px;
+  width:25px;
   background: #fff;
   border-radius: 5px;
   opacity: 1;
@@ -93,7 +124,7 @@ $hamburger-width:20px;
 	&.active{
     justify-content: center;
 		span:nth-child(1) {
-		  top:4px;
+		  top:8px;
 		  -webkit-transform: rotate(-135deg);
 		  -moz-transform: rotate(-135deg);
 		  -o-transform: rotate(-135deg);
@@ -107,7 +138,7 @@ $hamburger-width:20px;
 		  transition: .16s ease-in-out;
 		}
 		span:nth-child(3) {
-		  bottom:4px;
+		  bottom:0;
 		  -webkit-transform: rotate(135deg);
 		  -moz-transform: rotate(135deg);
 		  -o-transform: rotate(135deg);
