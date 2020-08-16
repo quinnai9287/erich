@@ -1,4 +1,5 @@
-//app.js
+//app.js 2020-08-04
+//app.js 2020-07-23
 
 function initNavbar(){
 
@@ -7,6 +8,7 @@ function initNavbar(){
 
     const navbar = $('.ert-navbar')
     const body = document.getElementsByTagName("BODY")[0];
+    let   $html = $('html')
     let  navbarToggle, navbarCollpase, navbarClose;
 	let  threshhold = navbar.outerHeight()
 
@@ -44,12 +46,14 @@ function initNavbar(){
         if(!collapsed){
 
             body.classList.add('lock-body')
+            $html.css({'overflow-y':' scroll'})
         	toggle.classList.add('active')
             element.dispatchEvent(navCollpaseShow);
 
         }else{
 
             body.classList.remove('lock-body')
+            $html.css({'overflow-y':' auto'})
         	toggle.classList.remove('active')
             element.dispatchEvent(navCollpaseHide);
         }
@@ -134,3 +138,68 @@ document.onreadystatechange = function () {
 
   	}
 }
+
+
+function shuffle(array) {
+    var counter = array.length, temp, index;
+
+    // While there are elements in the array
+    while (counter--) {
+      // Pick a random index
+      index = (Math.random() * counter) | 0;
+
+      // And swap the last element with it
+      temp = array[counter];
+      array[counter] = array[index];
+      array[index] = temp;
+    }
+
+    return array;
+}
+
+
+function fetchingAPI(option,object){
+
+    console.log( option , object )
+
+    return new Promise(( resolve , reject ) => {
+
+                fetch( option._uri, {
+
+                    method: option._method, 
+                    body: JSON.stringify({ query: object._gql , variables: object._variable }),
+                    headers: new Headers( option._headers )
+
+                }).then(function(response) {
+
+                    //處理 response
+                    return response.json()
+
+                }).then(function(j) {
+
+                    let data = j.data
+
+                    resolve(data);
+
+                }).catch(function(err) {
+                    
+                    console.log(err)
+                })
+
+            }) 
+
+}
+
+
+requirejs.config({
+    baseUrl:'/ERICHWeb/vue/',
+    paths: {
+        "Vue": "/ERICHWeb/libs/vue.min",
+        "Axios": "/ERICHWeb/libs/axios.min",
+        "vue": "/ERICHWeb/libs/require-vuejs.min"
+    },
+    shim: {
+        "Vue": {"exports": "Vue"}
+    }
+});
+

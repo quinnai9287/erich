@@ -1,0 +1,65 @@
+@@include('_head-meta.html') 
+		<main id="vueapp" v-bind:class="{ 'vue-initialized' : init }">
+			@@include('_navbar.html') 
+			<section class="section">
+				<div class="container">
+					<div class="ert-btn-container">
+						<a class="arrow-btn left" href=""></a>
+					</div>
+					<article class="ert-article-container">
+						<div class="ert-article d-lg-none">
+							<div class="title">中秋節月餅</div>
+							<div class="subtitle">活動時間：2020/7/15 - 2020/9/15</div>
+					          <div class="card-tags">
+					          	<small>自由搭配</small>
+					          	<small>買十送一</small>
+					          	<small>單一地址滿6000元免運</small>
+					          </div>
+					     </div>
+						<div class="ert-article-pictures">
+							<img src="/ERICHWeb/img/article/eventimg_01.jpg" alt="">
+							<img src="/ERICHWeb/img/article/eventimg_02.jpg" alt="">
+						</div>
+						<div class="ert-article">
+							<div class="d-none d-lg-block">
+								<div class="title">中秋節月餅</div>
+								<div class="subtitle">活動時間：2020/7/15 - 2020/9/15</div>
+						          <div class="card-tags">
+						          	<small>自由搭配</small>
+						          	<small>買十送一</small>
+						          	<small>單一地址滿6000元免運</small>
+						          </div>
+					         </div>
+							<div class="content">
+								<p>不可錯過的經典中秋節月餅，永豐吐司推出中秋節月餅禮盒，買十送一，數量有限，欲購從速！</p>
+								<p>不可錯過的經典中秋節月餅，永豐吐司推出中秋節月餅禮盒，買十送一，數量有限，欲購從速！</p>
+								<p><b>購買方式： </b><br>電話訂購 0939-123-456<br>下載訂購單</p>
+								<p><b>運送方式：</b><br> 宅配到府</p>
+							</div>
+						</div>
+					</article>
+				</div>
+			</section>
+		    <section class="section">
+		    	<div class="container">
+		    		<div class="section-title noto-thin">${ about.aboutTitle }</div>
+		    		<div class="section-subtitle large-space">${ about.aboutSubtitle }</div>
+		    		<div class="custom-image-layout">
+		    			<div v-for="url in about.abountContentMedia"><img :src="'https://erich-t.blockcode.com.tw'+url" alt=""></div>
+		    		</div>
+		    	</div>
+		    </section>
+		    <section class="section bg-grey">
+		      <div class="container">
+		      	<div class="section-title">相關產品</div>
+				<products-slider class="ert-product-silder" :slides="products" :domain="domain"></products-slider>
+		      </div>
+		    </section>
+			@@include('_footer.html') 
+		</main>
+
+		@@include('_footjs.html') 
+
+		<script type="text/javascript" src="/ERICHWeb/js/event.js"></script>
+
+@@include('_html-foot.html') 

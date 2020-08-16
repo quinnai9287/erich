@@ -38,6 +38,11 @@ $primary-gradient-hover: linear-gradient(180deg, #ff6064 0%, #b12546 100%);
 	align-items: center;
 	margin-left:-1rem;
 	margin-right: -1rem;
+	.btn-primary{
+		&:not(:hover){
+			background-color: #fff;
+		}
+	}
 	.btn{
 		flex:0 0 29%;
 		max-width: 29%;
@@ -46,9 +51,6 @@ $primary-gradient-hover: linear-gradient(180deg, #ff6064 0%, #b12546 100%);
 		margin-bottom: .7rem;
 		white-space: nowrap;
 		font-size: 18px;
-		&:not(:hover){
-			background-color: #fff;
-		}
 	}
 	@media screen and (min-width: $screen-tablet){
 		.btn{
@@ -67,6 +69,14 @@ $primary-gradient-hover: linear-gradient(180deg, #ff6064 0%, #b12546 100%);
 	&:hover,&:focus,&.active{
 		background-color:$ert-red;
 		color:#fff;
+	}
+	&.active{
+		color:#fff;
+		background-color: $ert-red
+	}
+	&.disabled{
+		cursor: inherit;
+    	pointer-events: none;
 	}
 }
 
@@ -108,13 +118,19 @@ $primary-gradient-hover: linear-gradient(180deg, #ff6064 0%, #b12546 100%);
 		border-left: 2px solid #fff;
 		transform: rotate(45deg);
 	}
+	&.left,&.right{
+		height: 38px;
+  		width: 38px;
+	}
 	&.left{
 		padding-left:50px;
+		margin-right: auto;
 		&:before{ left:0; }
 		&:after{ transform: rotate(-45deg); top:initial;left:14px; }
 	}
 	&.right{
 		padding-right:50px;
+		margin-left: auto;
 		&:before{ right:0; }
 		&:after{ transform: rotate(135deg); top:initial;right:14px;  }
 	}

@@ -1,0 +1,25 @@
+@@include('_head-meta.html') 
+		<main id="vueapp" v-bind:class="{ 'vue-initialized' : init }">
+			@@include('_navbar.html') 
+		    <section class="section">
+		      <div class="container">
+			    <div class="ert-product-list-switcher justify-content-center">
+			      <div class="title">活動</div>
+			    </div>
+		        <event-cards :cards="events" :domain="domain" :options="eventCardsOptions"></event-cards>
+		      </div>
+		    </section>
+		    <section class="section bg-grey">
+		    	<div class="container">
+		        	<div class="section-title">瀏覽商品</div>
+		        	<product-category :btns="taxonomy" :domain="domain"></product-category>
+		    	</div>
+		    </section>
+			@@include('_footer.html') 
+		</main>
+
+		@@include('_footjs.html') 
+
+		<script type="text/javascript" src="/ERICHWeb/js/eventIndex.js"></script>
+		
+@@include('_html-foot.html') 

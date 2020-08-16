@@ -40,7 +40,8 @@ var cf = {
     js: [
         cf_src + '/**/*.js',
         cf_src + '/**/*.json',
-        '!'+ cf_src + '/libs/**/*.js',
+        cf_src + '/vue/*.vue',
+        cf_src + '/libs/*.js',
     ],
     //image
     img: [
@@ -129,7 +130,7 @@ gulp.task('minify-css',() => {
 
 //task script
 gulp.task('scripts', function () {
-    return gulp.src(cf.js)
+    return gulp.src(cf.js,{ base: cf_src })
         .pipe(changed(cf.dist))
         .pipe(debug({ 'title': '> scripts: ' }))
         .pipe(gulp.dest(cf.dist));

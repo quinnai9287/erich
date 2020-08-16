@@ -16,6 +16,13 @@ body{
 }
 
 
+#vueapp{
+	visibility: hidden;
+	&.vue-initialized{
+		visibility: visible;
+	}
+}
+
 a{
 	&:hover,&:focus{
 		text-decoration: none;
@@ -33,6 +40,17 @@ section{
 	position:relative;
 }
 
+
+.empty{
+	padding:8.5rem 3rem;
+	display: flex;
+	flex-direction:column;
+	justify-content:flex-start;
+	align-items:flex-start;
+	.section-title{ margin-bottom: 1rem; }
+	p{ font-size: 18px; }
+}
+
 .collapse-menu{
 	visibility: hidden;
 	height:0px;
@@ -41,7 +59,7 @@ section{
 	&.active{
 		visibility: visible;
 		height: auto;
-	}
+	} 
 }
 
 .section{
@@ -56,6 +74,9 @@ section{
 		padding:60px 0;
 	}
 }
+
+
+
 .section-title{
 	font-size: 28px;
 	color:$ert-red;
@@ -92,6 +113,24 @@ section{
 				margin-bottom: 60px;
 			}
 		}
+	}
+}
+
+.section-content.article{
+	line-height: 2;
+	text-align: left;
+	p{ margin-bottom: 1.5rem }
+}
+
+.primary-list{
+	>li{
+		margin-bottom: 4rem;
+		p{ padding-left:3rem; }
+	}
+	ol{
+		padding-left: 4rem;
+		>li{ margin-bottom: 3rem }
+		p { padding-left: 0 }
 	}
 }
 
@@ -143,11 +182,19 @@ section{
 	align-items: center;
     margin-top: 30px;
     margin-bottom: 60px;
+    position:relative;
+    min-height: 38px;
 	.title{
 		font-size: 28px;
 	    color: #d50032;
 	    line-height: 1;
 	    font-weight: 700;
+	    position: relative;
+	    width: 300px;
+	    margin:auto;
+	    text-align: center;
+	    line-height:38px;
+	    min-height: 38px;
 	}
 	@media screen and (min-width: $screen-tablet){
 		 margin-top:0;
@@ -175,6 +222,7 @@ section{
 	}
 	@media screen and (max-width: $screen-mobile){
 		.title{
+			width: 200px;
 			max-width: 200px;
 		}
 		.switch-prev,.switch-next{

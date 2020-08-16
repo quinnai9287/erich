@@ -1,5 +1,5 @@
 @@include('_head-meta.html') 
-		<main id="vueapp" >
+		<main id="vueapp" v-bind:class="{ 'vue-initialized' : init }">
 			@@include('_navbar.html') 
 			<section class="section">
 				<div class="container">
@@ -86,18 +86,8 @@
 		    </section>
 		    <section class="section bg-grey">
 		    	<div class="container">
-		    		<div class="section-title">相關商品</div>
-			        <div class="ert-cards-group filter-first-2">
-						<div class="col-6 col-lg-4" v-for="(item,index) in products">
-							<div class="card">
-					          <a class="card-img-outer" href="#">
-					              <img :src="'https://erich-t.blockcode.com.tw'+ item.productPicture.urls" alt="Image" class="card-img"></img>
-					          </a>
-					          <a class="card-title-link" href="#"><h4 class="card-title">${ item.productTitle }</h4></a>
-					          <p class="card-summary">${ item.productPrice }</p>
-				          	</div>
-						</div>
-			        </div>
+		    		<div class="section-title">相關產品</div>
+					<products-slider class="ert-product-silder" :slides="products" :domain="domain"></products-slider>
 		    	</div>
 		    </section>
 			@@include('_footer.html') 
@@ -105,134 +95,6 @@
 
 		@@include('_footjs.html') 
 
-		<script type="text/javascript">
-
-			function fetchingAPI(option,object){
-
-				//console.log( option , object )
-
-				return new Promise(( resolve , reject ) => {
-
-							fetch( option._uri, {
-
-								method: option._method, 
-								body: JSON.stringify({ query: object._gql , variables: object._variable }),
-								headers: new Headers( option._headers )
-
-							}).then(function(response) {
-
-							  	//處理 response
-							  	return response.json()
-
-				  			}).then(function(j) {
-
-				  				let data = j.data
-
-				  				resolve(data);
-
-				  			}).catch(function(err) {
-				    			
-				    			console.log(err)
-							})
-
-				  		}) 
-
-			}
-		</script>
-
-		<script>
-
-			var vm = new Vue({
-			  el: '#vueapp',
-			  delimiters: ['${', '}'],
-			  data(){
-			  	return{
-			  		products:[],
-				    about:{
-				    	aboutTitle:'',
-				    	aboutSubtitle:'',
-				    	abountContentMedia:''
-				    }
-			  	}
-			  },
-			  mounted(){
-			  	console.log(this)
-			  }
-			});
-
-			console.log('### init vue app! ###')
-
-			function initapp(){
-
-				//set up api options
-				let option = {
-
-					_uri:'https://erich-t.blockcode.com.tw/api/graphql',
-					_method:'POST',
-					_headers:{
-						'Content-Type': 'application/json'
-					}
-
-				}
-
-				let homePage = {
-
-						_gql: `query{
-							# 主視覺
-							homePage(first: 1) {
-							    aboutTitle
-							    aboutSubtitle
-							    abountContentMedia {
-							      urls
-							    }
-							}
-						}`
-				}
-
-				let products = {
-
-						_gql: `query GHQProductItemsByCategoryID($parameters: String!) {
-							    getProductItemsByCategoryID(parameters: $parameters) {
-							        productTitle
-							        productPicture {
-							        urls(first: 1)
-							        }
-							        productPrice
-							        productCategory {
-							        termContentItems {
-							            displayText
-							        }
-							        }
-							    }
-
-						}`,
-
-						_variable: { "parameters": "{\"TermContentItemId\": \"4dg4mksctmmhf1g5hfsx6x99nm\"}" }
-
-				}
-
-				fetchingAPI(option,homePage).then( data => {
-
-					console.log("data=", data )
-
-					vm.about.aboutTitle = data.homePage[0].aboutTitle
-					vm.about.aboutSubtitle = data.homePage[0].aboutSubtitle
-					vm.about.abountContentMedia = data.homePage[0].abountContentMedia.urls
-
-				})
-
-				fetchingAPI(option,products).then( data => {
-
-					console.log("data=", data.getProductItemsByCategoryID )
-
-					vm.products = data.getProductItemsByCategoryID
-					
-				})
-
-			}
-
-			initapp()
-
-		</script>
+		<script type="text/javascript" src="/ERICHWeb/js/event.js"></script>
 
 @@include('_html-foot.html') 

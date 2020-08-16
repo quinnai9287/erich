@@ -1,0 +1,26 @@
+@@include('_head-meta.html') 
+		<main id="vueapp" v-bind:class="{ 'vue-initialized' : init }">
+			@@include('_navbar.html') 
+		    <section class="section">
+		      <div class="container">
+			    <div class="ert-product-list-switcher">
+			      <a v-if="hasprev" class="switch-prev arrow-btn left" :href="'/ERICHWeb/product-index/?'+prev.path"><span>${ prev.displayText }</span></a>
+			      <h1 class="title"> ${ title } </h1>
+			      <a v-if="hasnext" class="switch-next arrow-btn right" :href="'/ERICHWeb/product-index/?'+next.path"><span>${ next.displayText }</span></a>
+			    </div>
+				<product-cards :cards="products" :domain="domain" :options="productCardsOptions"></product-cards>
+		      </div>
+		    </section>
+		    <section class="section bg-grey">
+		    	<div class="container">
+		        	<h3 class="section-title">其他商品分類</h3>
+		    	</div>
+		    </section>
+			@@include('_footer.html') 
+		</main>
+
+		@@include('_footjs.html') 
+
+		<script type="text/javascript" src="/ERICHWeb/js/productIndex.js"></script>
+
+@@include('_html-foot.html') 

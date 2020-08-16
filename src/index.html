@@ -1,91 +1,25 @@
 @@include('_head-meta.html') 
-		<main id="vueapp" class="index-navbar-hollow">
-			@@include('_navbar.html') 
+		@@include('_navbar.html') 
+		<main id="vueapp" class="index-navbar-hollow" v-bind:class="{ 'vue-initialized' : init }">
 			<section class="ert-carousel-container">
-				<div class="ert-carousel slick" data-autoplay-speed="4000" data-autoplay="true" data-dots="true">
-					<div class="slide">
-						<div class="slide-img">
-							<picture>
-							    <img src="https://erich-t.blockcode.com.tw/media/1_Event/Banner/202071_200701_4.jpg"  alt="alt">
-							</picture>
-						</div>
-				      	<a href="https://erich-t.blockcode.com.tw/promotion/中秋永豐-值得您典藏" class="ert-carousel-caption">
-				      		<div class="title">讓早午餐浪漫起來</div>
-				      		<div class="subtitle">- 用烘培拉近你我的關係 -</div>
-				      		<div class="summary">加拿大頂級小麥粉 + 牧場3.7頂級鮮乳 + 天然酵母 + 職人堅持手工打造保水綿密的山形吐司，每日限量供應</div>
-				      	</a>
-					</div>
-					<div class="slide">
-						<div class="slide-img">
-							<picture>
-							    <img src="https://erich-t.blockcode.com.tw/media/1_Event/Banner/202071_200701_23.jpg"  alt="alt">
-							</picture>
-						</div>
-				      	<a href="https://erich-t.blockcode.com.tw/classroom/永豐牛奶吐司配方大公開" class="ert-carousel-caption">
-				      		<div class="title">用烘培拉近我們的距離</div>
-				      		<div class="subtitle">用烘培拉近我們的距離</div>
-				      		<div class="summary">加拿大頂級小麥粉 + 牧場3.7頂級鮮乳 + 天然酵母 + 職人堅持手工打造保水綿密的山形吐司，每日限量供應</div>
-				      	</a>
-					</div>
-				</div>
+				<slick-slider class="ert-carousel slick" :slides="slick.kv" :domain="domain" data-autoplay-speed="4000" data-autoplay="true" data-dots="true"></slick-slider>
 				<a id="BtnSeeMore" class="arrow-btn see-more-btn" href="javascript:;"></a>
 			</section>
 		    <section class="section">
 		      <div class="container">
 		        <div class="section-title large-space">近期活動</div>
-		        <div class="ert-cards-group filter-first-3">
-					<div class="col-6 col-lg-4" v-for="ev in events">
-						<div class="card">
-				          <a class="card-img-outer" href="#">
-				              <img :src="'https://erich-t.blockcode.com.tw'+ ev.eventKVSQ.urls" alt="Image" class="card-img"></img>
-				          </a>
-
-				          <div class="card-cate">${ ev.eventDateBegin!=undefined ? '行銷活動' : '烘培教室' }</div>
-
-				          <a class="card-title-link" href="#"><h4 class="card-title">${ ev.eventTitle }</h4></a>
-				          <div class="card-time" v-if="ev.eventDateBegin != undefined">${ev.eventDateBegin} - ${ev.eventDateEnd}</div>
-
-				          
-				          <div class="card-tags" v-if="ev.eventTags != undefined">
-				          	<small v-for=" tags in ev.eventTags.termContentItems">${ tags.displayText }</small>
-				          </div>
-				          <p class="card-summary">${ ev.eventSummary }</p>
-
-				          <a class="card-link" :href="ev.path">閱讀更多</a>
-			          	</div>
-					</div>
-		        </div>
-		        <a href="#" class="btn btn-primary btn-lg">更多活動</a>
+		        <event-cards :cards="events" :domain="domain" :options="eventCardsOptions"></event-cards>
+		        <a href="/ERICHWeb/event-index/" class="btn btn-primary btn-lg">更多活動</a>
 		      </div>
 		    </section>
 		    <section class="section bg-grey">
 		      	<div class="container">
 		        	<div class="section-title">最新商品</div>
-			        <div class="ert-cards-group">
-						<div class="col-6 col-lg-4" v-for="(item,index) in products">
-							<div class="card">
-					          <a class="card-img-outer" href="#">
-					              <img :src="'https://erich-t.blockcode.com.tw'+ item.productPicture.urls" alt="Image" class="card-img"></img>
-					          </a>
-					          <a class="card-title-link" href="#"><h4 class="card-title">${ item.productTitle }</h4></a>
-					          <p class="card-summary">${ item.productPrice }</p>
-				          	</div>
-						</div>
-			        </div>
+					<product-cards :cards="products" :domain="domain" :options="productCardsOptions"></product-cards>
 		        	<div class="section-title">熱門商品</div>
-			        <div class="ert-cards-group">
-						<div class="col-6 col-lg-4" v-for="(item,index) in products">
-							<div class="card">
-					          <a class="card-img-outer" href="#">
-					              <img :src="'https://erich-t.blockcode.com.tw'+ item.productPicture.urls" alt="Image" class="card-img"></img>
-					          </a>
-					          <a class="card-title-link" href="#"><h4 class="card-title">${ item.productTitle }</h4></a>
-					          <p class="card-summary">${ item.productPrice }</p>
-				          	</div>
-						</div>
-			        </div>
+			        <product-cards :cards="products" :domain="domain" :options="productCardsOptions"></product-cards>
 		        	<div class="section-title ">瀏覽商品</div>
-		        	<product-category :btns="taxonomy"></product-category>
+		        	<product-category :btns="taxonomy" :domain="domain"></product-category>
 		        </div>
 		    </section>
 		    <section class="section">
@@ -93,289 +27,14 @@
 		    		<div class="section-title noto-thin">${ about.aboutTitle }</div>
 		    		<div class="section-subtitle large-space">${ about.aboutSubtitle }</div>
 		    		<div class="custom-image-layout">
-		    			<div v-for="url in about.abountContentMedia"><img :src="'https://erich-t.blockcode.com.tw'+url" alt=""></div>
+		    			<div v-for="url in about.abountContentMedia"><img :src="domain+url" alt=""></div>
 		    		</div>
 		    	</div>
 		    </section>
-			@@include('_footer.html') 
 		</main>
-
+		@@include('_footer.html') 
 		@@include('_footjs.html') 
 
-		<script type="text/javascript" src="/ERICHWeb/libs/slick.min.js"></script>
+		<script type="text/javascript" src="/ERICHWeb/js/index.js"></script>
 
-		<script type="text/javascript">
-
-			function fetchingAPI(option,object){
-
-				console.log( option , object )
-
-				return new Promise(( resolve , reject ) => {
-
-							fetch( option._uri, {
-
-								method: option._method, 
-								body: JSON.stringify({ query: object._gql , variables: object._variable }),
-								headers: new Headers( option._headers )
-
-							}).then(function(response) {
-
-							  	//處理 response
-							  	return response.json()
-
-				  			}).then(function(j) {
-
-				  				let data = j.data
-
-				  				resolve(data);
-
-				  			}).catch(function(err) {
-				    			
-				    			console.log(err)
-							})
-
-				  		}) 
-
-			}
-		</script>
-
-		<script>
-
-			//vue code
-			const ProductCategory = Vue.component("ProductCategory", {
-				props: {
-					btns: {
-					  type: Array,
-					  required: true
-					}
-				},
-				template: `
-					<div class="ert-btns-group">
-						<a v-for="i in btns " :href="i.path" class="btn btn-outline-primary">{{ i.displayText }}</a>
-					</div>`,
-			});
-
-			let vm = new Vue({
-			  el: '#vueapp',
-			  delimiters: ['${', '}'],
-			  components:{
-			  	"product-category": ProductCategory
-			  },
-			  data: {
-			  	message:'瀏覽商品',
-			    homePage:[],
-			    events:[],
-			    taxonomy:[],
-			    about:{
-			    	aboutTitle:'',
-			    	aboutSubtitle:'',
-			    	abountContentMedia:''
-			    },
-			    kv:[],
-			    products:[]
-			  },
-			  beforeMount(){
-
-			  	this.slickinit = true
-
-			  },
-			  mounted(){
-			  	console.log(this)
-
-			  	
-			  	const slick = $('.slick')
-		  		slick.slick({
-		  			dots: true,
-						slidesToShow: 1,
-						slidesToScroll: 1
-		  		})
-
-
-				$('#BtnSeeMore').on('click',function(){
-
-					$("html, body").animate({ scrollTop: $(this).offset().top - 112 }, 1000);
-					
-				})
-
-			  }
-			});
-
-			console.log('### init vue app! ###')
-
-			function initapp(){
-
-				//set up api options
-				let option = {
-
-					_uri:'https://erich-t.blockcode.com.tw/api/graphql',
-					_method:'POST',
-					_headers:{
-						'Content-Type': 'application/json'
-					}
-
-				}
-
-				//set up graphql object
-
-				let homePage = {
-
-						_gql: `query{
-							# 主視覺
-							homePage(first: 1) {
-							    kV {
-							      contentItems {
-							        ... on CarouselBanner {
-							          bannerContent
-							          bannerTitle
-							          bannerMedia {
-							            urls
-							          }
-							          contentLink {
-							            contentItems {
-							              ... on EventPost {
-							                path
-							              }
-							              ... on EventPost2 {
-							                path
-							              }
-							            }
-							          }
-							        }
-							      }
-							    }
-							    aboutTitle
-							    aboutSubtitle
-							    abountContentMedia {
-							      urls
-							    }
-							}
-						}`
-				}
-
-				let events = {
-
-					_gql: `query {
-						  # 活動列表
-						  event{
-						    list {
-						      contentItems (first: 4){
-						        published
-						        ... on EventPost {
-						          eventKVSQ {
-						            urls
-						          }
-						          eventTitle
-						          eventDateBegin
-						          eventDateEnd
-						          eventSummary
-						          path
-						        }
-						        ... on EventPost2 {
-						          eventKVSQ {
-						            urls
-						          }
-						          eventTitle
-						          eventSummary
-						          eventTags {
-						            termContentItems(first: 3) {
-						              displayText
-						            }
-						          }
-						          path
-						        }
-						      }
-						    }
-						  }
-						}`
-
-				}
-
-				let taxonomy = {
-
-						_gql: `query{
-						  # 商品分類按鈕
-						  taxonomy(where: {alias: {alias: "product-category"}}) {
-						    displayText
-						    alias {
-						      alias
-						    }
-						    taxonomy {
-						      contentItems {
-						        ... on Category {
-						          displayText
-						          path
-						        }
-						      }
-						    }
-						  }
-						}`,
-
-				}
-
-				let products = {
-
-					_gql:`query{
-						  productItem(first: 6) {
-						    productTitle
-						    productPicture {
-						      urls(first: 1)
-						    }
-						    productPrice
-						  }
-						}`
-
-				}
-
-				//get api data
-				fetchingAPI(option,homePage).then( data => {
-
-					console.log("data=", data )
-
-					vm.about.aboutTitle = data.homePage[0].aboutTitle
-					vm.about.aboutSubtitle = data.homePage[0].aboutSubtitle
-					vm.about.abountContentMedia = data.homePage[0].abountContentMedia.urls
-					vm.kv = data.homePage[0].kV.contentItems
-
-				})
-
-				fetchingAPI(option,events).then( data => {
-
-					console.log("data=", data )
-
-					vm.events = data.event[0].list.contentItems
-
-				})
-
-				fetchingAPI(option,products).then( data => {
-
-					console.log("data=", data )
-
-					vm.products = data.productItem
-
-				})
-
-				fetchingAPI(option,taxonomy).then( data => {
-
-					console.log("data=", data.taxonomy[0].taxonomy.contentItems )
-
-					vm.taxonomy = data.taxonomy[0].taxonomy.contentItems
-					
-				})
-
-			}
-
-			
-			initapp()
-
-		</script>
-
-		<script>
-
-
-
-
-
-
-
-		</script>
 @@include('_html-foot.html') 

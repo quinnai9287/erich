@@ -37,10 +37,25 @@
 	}
 	
 }
+.ert-footer-sublinks-group{
+	margin-top:.5rem;
+	display: flex;
+	flex-wrap:wrap;
+	flex-direction: row;
+	width: 80%;
+	>li{ 
+		flex:0 0 50%;
+		max-width: 50%;
+		padding-bottom:.25rem
+	}
+	font-size: 14px;
+}
 .ert-info-group{
 	p{ font-size: 14px; }
 	.company-brand{
 		font-size: 18px;
+		margin-bottom: .5rem;
+		font-weight: bold;
 	}
 }
 
@@ -70,6 +85,8 @@
 		width: auto;
 		flex-direction: column;
 		margin-bottom:0;
+		max-height: 200px;
+		flex-wrap: wrap;
 		>li{
 			flex:0 0 auto;
 			max-width: none;

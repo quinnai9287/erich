@@ -26,6 +26,9 @@
 				}
 			}
 		}
+		&.empty{
+			margin-bottom: 6rem
+		}
 	}
 	@media screen and (max-width: $screen-tablet){
 		&.filter-first-2{
@@ -34,6 +37,18 @@
 					display: none
 				}
 			}
+		}
+	}
+	&.empty{
+		padding:4rem 1rem;
+		margin-left:0;
+		margin-right: 0;
+		background-color:#f4f4f4;
+		h3{color:#b1b1b1;font-size: 18px;}
+		justify-content:center;
+		visibility: hidden;
+		&.visible{
+			visibility: visible;
 		}
 	}
 }
@@ -117,12 +132,14 @@
 	  }
 	}
 	.card-summary{
-		margin-bottom: 1.5rem;
+		margin-bottom: .5rem;
 		font-size: 14px;
 	}
 	.card-tags{
 		margin-top: 10px;
-		small{ font-size: 10px; }
+		small{ 
+			font-size: 10px; 
+		}
 	}
 	@media screen and (min-width: $screen-tablet){
 		.card-cate{
@@ -133,6 +150,7 @@
 		}
 		.card-summary{
 			font-size: 16px;
+			margin-bottom: .75rem;
 		}
 		.card-time{
 			font-size: 16px;
@@ -150,12 +168,16 @@
 		margin-left: -.25rem;
 		margin-right: -.25rem;
 		margin-top: .25rem;
-		>small{
+		.tag{
 			color:$ert-red;
 			display: inline-block;
 			padding:.25rem .5rem;
 			border:1px solid $ert-red;
 			margin:0 .25rem;
 			margin-bottom:10px;
+			&.cyan{
+				color:$ert-cyan;
+				border:1px solid $ert-cyan;
+			}
 		}
 	}

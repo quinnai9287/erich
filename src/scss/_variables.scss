@@ -1,3 +1,13 @@
+/* 2020-08-12 app.css */
+/* 2020-08-08 app.css */
+/* 2020-08-07_2 app.css */
+/* 2020-08-07_1 app.css */
+/* 2020-08-07 app.css */
+/* 2020-08-04 app.css */
+/* 2020-07-28 app.css */
+/* 2020-07-23 app.css */
+
+
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,200,400,700');
 
 //prefix
@@ -6,6 +16,7 @@ $projectName: ert ;
 
 
 $ert-red: #d50032 !default;
+$ert-cyan: #19778B !default;
 
 
 $link-color: #909090 !default;
@@ -30,5 +41,5 @@ $screen-desktop-xlg: 	1400px !default;
 
 
 //ios setting
-$ios-screen-height: 	calc( 100vh - 75px ) !default;
+$ios-screen-height: 	calc( 97vh - 75px ) !default;
 $ios-screen-md-height: 	calc( 100vh - 53px ) !default;
