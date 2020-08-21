@@ -64,11 +64,11 @@ function initNavbar(){
 
 		if( y > threshhold ){
 
-			navbar.addClass('navbar-solid')
+			navbar.addClass('navbar-alpha')
 
 		}else{
 
-			navbar.removeClass('navbar-solid')
+			navbar.removeClass('navbar-alpha')
 
 		}
 
@@ -83,17 +83,19 @@ function initNavbar(){
 
     		handleNavLock(defaultScrollTop)
 
-	        $(window).scroll(function(){
-
-				let y = $(window).scrollTop();		
-				handleNavLock(y)
-
-	        })
-
     	}else{
 
     		navbar.addClass('navbar-solid')
     	}
+
+        
+        $(window).scroll(function(){
+
+            let y = $(window).scrollTop();      
+            handleNavLock(y)
+
+        })
+
 
     }
 

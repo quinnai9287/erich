@@ -10,7 +10,9 @@ require(["Vue", "vue!productCategory" , "vue!eventCards" ], function(Vue){
 	  		init:false,
 	  		events:[],
 	  		taxonomy:[],
-		    eventCardsOptions:{}
+		    eventCardsOptions:{
+		    	groupClass:'ert-events-card'
+		    }
 	  	}
 	  },
 	  mounted(){

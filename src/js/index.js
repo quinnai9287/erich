@@ -11,7 +11,8 @@ require(["Vue", "vue!myslick", "vue!productCategory" , "vue!eventCards" , "vue!p
 	    events:[],
 	    taxonomy:[],
 	    taxonomyActive:{},
-	    products:[],
+		products1: [],
+		products2: [],
 	    about:{
 	    	aboutTitle:'',
 	    	aboutSubtitle:'',
@@ -37,7 +38,7 @@ require(["Vue", "vue!myslick", "vue!productCategory" , "vue!eventCards" , "vue!p
 			}
 	    },
 	    eventCardsOptions:{
-	    	groupClass:'filter-first-3'
+	    	groupClass:'filter-first-3 ert-events-card'
 	    },
 	    productCardsOptions:{}
 	  },
@@ -50,6 +51,7 @@ require(["Vue", "vue!myslick", "vue!productCategory" , "vue!eventCards" , "vue!p
 			$("html, body").animate({ scrollTop: $(this).offset().top - 112 }, 1000);
 			
 		})
+
 	  }
 	});
 
@@ -57,6 +59,7 @@ require(["Vue", "vue!myslick", "vue!productCategory" , "vue!eventCards" , "vue!p
 	console.log('### init vue app! ###')
 
 	function initapp(){
+
 
 
 		let config = getConfig()
@@ -166,24 +169,56 @@ require(["Vue", "vue!myslick", "vue!productCategory" , "vue!eventCards" , "vue!p
 
 		}
 
-		let products = {
+		let products1 = {
 
-			_gql:`query{
-				  productItem(first: 6) {
-				    productTitle
-				    productPicture {
-				      urls(first: 1)
+			_gql: `query GHQProductItemsByCategoryID($parameters: String!) {
+				    getProductItemsByCategoryID(parameters: $parameters) {
+				        productTitle
+				        productPicture {
+				        urls(first: 1)
+				        }
+				        productPrice
+				        productCategory {
+				        termContentItems {
+				            displayText
+				        }
+				        }
+				        path
 				    }
-				    productPrice
-				  }
-				}`
+
+			}`,
+
+			_variable: { "parameters": "{\"TermContentItemId\": \"4tjer4vfykjy9178hqa0qzgmx7\"}" }
+
+		}
+
+		let products2 = {
+
+			_gql: `query GHQProductItemsByCategoryID($parameters: String!) {
+				    getProductItemsByCategoryID(parameters: $parameters) {
+				        productTitle
+				        productPicture {
+				        urls(first: 1)
+				        }
+				        productPrice
+				        productCategory {
+				        termContentItems {
+				            displayText
+				        }
+				        }
+				        path
+				    }
+
+			}`,
+
+			_variable: { "parameters": "{\"TermContentItemId\": \"4a9ct74mjqwvj1xbmccr9x824m\"}" }
 
 		}
 
 		//get api data
 		fetchingAPI(config.fetchOption,homePage).then( data => {
 
-			//console.log("data=", data )
+			console.log("data=", data )
 
 			vm.about.aboutTitle = data.homePage[0].aboutTitle
 			vm.about.aboutSubtitle = data.homePage[0].aboutSubtitle
@@ -200,11 +235,20 @@ require(["Vue", "vue!myslick", "vue!productCategory" , "vue!eventCards" , "vue!p
 
 		})
 
-		fetchingAPI(config.fetchOption,products).then( data => {
 
-			//console.log("data=", data )
+		fetchingAPI(config.fetchOption,products1).then( data => {
 
-			vm.products = data.productItem
+			console.log("data=", data )
+
+			vm.products1 = data.getProductItemsByCategoryID
+
+		})
+
+		fetchingAPI(config.fetchOption, products2).then(data => {
+
+			console.log("data=", data)
+
+			vm.products2 = data.getProductItemsByCategoryID
 
 		})
 
@@ -215,6 +259,26 @@ require(["Vue", "vue!myslick", "vue!productCategory" , "vue!eventCards" , "vue!p
 			vm.taxonomy = data.taxonomy[0].taxonomy.contentItems
 			
 		})
+
+
+
+
+		setTimeout(function(){
+
+			let parallaxWindow = $('.parallax-window')
+
+			parallaxWindow.each(function(){
+
+
+				let src = $(this).attr('data-img-src');
+				$(this).parallax({imageSrc: src})
+
+
+			})
+	
+		},1000)
+		 
+		
 
 	}
 

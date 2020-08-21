@@ -63,7 +63,7 @@
 	margin-bottom: 30px;
 	.card-cate{
 		color:$ert-red;
-		font-size: 8px;
+		font-size:10px;
 		margin-bottom: .15rem;
 		padding:0 .5rem;
 		display: block;
@@ -82,16 +82,16 @@
 	}
 	.card-time{
 		margin-top:2px;
-		margin-bottom: 1rem;
-		font-size: 10px;
+		margin-bottom: .75rem;
+		font-size:14px;
 		color:#666;
 	}
 	.card-title-link{
 	  color:#000;
 	  margin-bottom:0;
 	  font-size: 18px;
-	  font-weight: medium;
-	  h4{margin-bottom: 0}
+	  font-weight: 500;
+	  h4{margin-bottom: 0;font-weight: 500;}
 	  .card-title{opacity: 1;}
 	  &:hover,&:focus{
 	    .card-title{opacity: 0.55;}
@@ -102,7 +102,7 @@
 	  padding-bottom: 100%;
 	  position: relative;
 	  display: block;
-	  margin-bottom: .5rem;
+	  margin-bottom: .75rem;
 	  .card-img{
 	    top:0;
 	    left:0;
@@ -133,7 +133,7 @@
 	}
 	.card-summary{
 		margin-bottom: .5rem;
-		font-size: 14px;
+		font-size: 16px;
 	}
 	.card-tags{
 		margin-top: 10px;

@@ -64,15 +64,25 @@
 		position: relative;
 		width: 100%;
 		height: $ios-screen-height;
-		img{height: 100%;}
+		picture{
+			overflow: hidden;
+		}
+		img{
+			height: 100%;
+			transform: scale(1.2);
+			transition: 10s ease-out;
+		}
 	}
 	.slick-active{
 		.#{$projectName}-carousel-caption{
-			-webkit-animation: fade-in-from-bot 0.5s ease-out .5s;
-	    	animation: fade-in-from-bot 0.5s ease-out .5s;
-	    	-webkit-animatio-fill-mode:both;
-	    	animation-fill-mode:both;
+			// -webkit-animation: fade-in-from-bot 0.5s ease-out .5s;
+	  //   	animation: fade-in-from-bot 0.5s ease-out .5s;
+	  //   	-webkit-animatio-fill-mode:both;
+	  //   	animation-fill-mode:both;
 	    	opacity: 1;
+		}
+		picture{
+			img{ transform: scale(1); }
 		}
 	}
 	.slide-img{
@@ -156,7 +166,7 @@
 		}
 	}
 	.#{$projectName}-carousel-caption{
-		text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+		text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
 		z-index:2;
 		color:#fff;
 		position:absolute;
@@ -174,28 +184,19 @@
 			opacity: 1 !important;
 		}
 		.title{
-			font-weight: 300;
 			font-size: 40px;
+			font-family: 'Noto Serif TC',serif;
+			font-weight: 500;
 		}
 		.subtitle{
 			font-weight: 500;
 			font-size: 26px;
 			display: inline-block;
     		position: relative;
+			font-family: 'Noto Serif TC',serif;
 			+.summary{
 				margin-top:2rem;
 			}
-			&:before,&:after{
-			    display: inline-block;
-			    content: "";
-			    width: 15px;
-			    height: 2px;
-			    background-color: #fff;
-			    position: absolute;
-			    top: 51%;
-			}
-			&:before{ left: -25px }
-			&:after{ right: -25px }
 		}
 		.summary{
 			font-size: 18px;
@@ -215,9 +216,6 @@
 			.title{
 				font-size:2.5rem;
 			}
-			.subtitle{ 
-				font-weight: 300
-			}
 			.summary{
 				font-size: 1.25rem;
 			}
@@ -236,9 +234,6 @@
 			bottom: 25%;
 			.title{ 
 				font-size: 52px;
-				.subtitle{ 
-					margin-top: 1rem;
-				}
 			}
 			.subtitle{ 
 				font-size: 26px; 

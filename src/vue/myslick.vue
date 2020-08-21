@@ -24,15 +24,18 @@
               return {
                  sliderOptions: {
                   dots: true,
-                  arrows: true,
+                  arrows: false,
                   mobileFirst: true,
                   infinite: false,
+                  autoplay: true,
+                  autoplaySpeed: 8000,
+                  fade: true,
+                  cssEase: 'ease-out',
                   slidesToShow: 1,
                   responsive: [
                     {
                       breakpoint: 768,
-                      settings: {            
-                        arrows: true,
+                      settings: {       
                         slidesToShow: 1
                       }
                     }

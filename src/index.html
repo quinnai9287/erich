@@ -15,26 +15,40 @@
 		    <section class="section bg-grey">
 		      	<div class="container">
 		        	<div class="section-title">最新商品</div>
-					<product-cards :cards="products" :domain="domain" :options="productCardsOptions"></product-cards>
-		        	<div class="section-title">熱門商品</div>
-			        <product-cards :cards="products" :domain="domain" :options="productCardsOptions"></product-cards>
-		        	<div class="section-title ">瀏覽商品</div>
-		        	<product-category :btns="taxonomy" :domain="domain"></product-category>
+					<product-cards :cards="products1" :domain="domain" :options="productCardsOptions"></product-cards>
 		        </div>
 		    </section>
 		    <section class="section">
+		      	<div class="container">
+		        	<div class="section-title">熱門商品</div>
+			        <product-cards :cards="products2" :domain="domain" :options="productCardsOptions"></product-cards>
+		        </div>
+		    </section>
+		    <section class="section  bg-grey">
 		    	<div class="container">
 		    		<div class="section-title noto-thin">${ about.aboutTitle }</div>
-		    		<div class="section-subtitle large-space">${ about.aboutSubtitle }</div>
-		    		<div class="custom-image-layout">
-		    			<div v-for="url in about.abountContentMedia"><img :src="domain+url" alt=""></div>
-		    		</div>
+		    		<div class="section-subtitle">${ about.aboutSubtitle } </div>
 		    	</div>
+		    </section>
+		    <div class="parallax-window" data-image-src="/ERICHWeb/img/demoimg.jpg">
+		    </div>
+		    <section class="section">
+		    	<div class="container">
+	        		<div class="section-title ">瀏覽其他商品</div><!-- 
+	        		<product-category :btns="taxonomy" :domain="domain"></product-category> -->
+	        	<div class="image-buttons">
+	        		<div><a class="img-background-btn" style="background-image: url(https://erich-t.blockcode.com.tw/media/2_Product/C6/蛋糕盒/JustinSelect2.JPG)" href="#"><span>最新商品</span></a></div>
+	        		<div><a class="img-background-btn" style="background-image:url(https://erich-t.blockcode.com.tw/media/1_Event/202008/2008_中秋典藏1.jpg)" href="#"><span>熱門商品</span></a></div>
+	        		<div><a class="img-background-btn" style="background-image: url(https://erich-t.blockcode.com.tw/media/2_Product/C2/特濃牛乳吐司/JustinSelect1.JPG)" href="#"><span>吐司麵包</span></a></div>
+	        		<div><a class="img-background-btn" style="background-image: url(https://erich-t.blockcode.com.tw/media/9_Misc/IMG_7240.JPG)" href="#"><span>西點蛋糕</span></a></div>
+	        		<div><a class="img-background-btn" style="background-image: url(https://erich-t.blockcode.com.tw/media/1_Event/202008/2008_蛋黃酥3.JPG)" href="#"><span>伴手禮</span></a></div>
+	        	</div>
+	        	</div>
 		    </section>
 		</main>
 		@@include('_footer.html') 
 		@@include('_footjs.html') 
 
-		<script type="text/javascript" src="/ERICHWeb/js/index.js"></script>
+		<script type="text/javascript" src="/ERICHWeb/js/index.js?0819"></script>
 
 @@include('_html-foot.html') 

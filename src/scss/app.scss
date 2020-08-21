@@ -9,7 +9,9 @@
 @import 'app/stores';
 
 body{
-	font-family: 'Noto Sans TC',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+	font-family: 'Noto Sans TC', LiHeiPro, 微軟正黑體 ,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
 	&.lock-body{
 		overflow: hidden;
 	}
@@ -30,7 +32,7 @@ a{
 }
 
 main{
-	padding-top:114px;
+	padding-top:80px;
 	&.index-navbar-hollow{
 		padding-top:0
 	}
@@ -88,16 +90,19 @@ section{
 		margin-bottom: 60px;
 	}
 	&.noto-thin{
-		font-size: 40px;
-		line-height: 57px;
-		font-weight: 100;
+		font-size:1.75rem;
+		line-height: 1.5;
+		font-weight: 500;
 		color:#666;
+		font-family: 'Noto Serif TC',serif;
 		+.section-subtitle{
-			font-weight: 200;
+			font-weight: 500;
 			color:#666;
-			font-size: 26px;
+			line-height: 1.25;
+			font-size:1rem;
 			margin-top:-25px;
-			margin-bottom: 30px;
+			margin-bottom:0;
+			font-family: 'Noto Serif TC',serif;
 		}
 	}
 	@media screen and (min-width: $screen-tablet){
@@ -109,8 +114,9 @@ section{
 		&.noto-thin{
 			font-size: 52px;
 			+.section-subtitle{
+				font-size:1.5rem;
 				margin-top:-50px;
-				margin-bottom: 60px;
+				margin-bottom:0;
 			}
 		}
 	}
@@ -174,6 +180,57 @@ section{
 	}
 }
 
+.youtbue-icon{
+	width: 100px;
+	height: 22px;
+	background-image:url('/ERICHWeb/img/yt_logo_mono_dark.png');
+	background-size:100% auto;
+	text-indent: -9999px;
+	background-repeat:no-repeat;
+	display: inline-block;
+	margin-top:10px;
+}
+.line-icon{
+	width:45px;
+	height:45px;
+	background-size:100% auto;
+	text-indent: -9999px;
+	background-repeat:no-repeat;
+	background-image:url('/ERICHWeb/img/LINE_SOCIAL_Basic.png');
+	
+}
+
+.parallax-window{
+    min-height: 300px;
+    height: 300px;
+    background: transparent;
+    padding:2rem;
+    display: flex;
+    justify-content:flex-end;
+    align-items:flex-start;
+    color:#fff;
+    position:relative;
+    flex-flow:column wrap;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+	.section-title.noto-thin, .section-title.noto-thin+.section-subtitle{
+		color:#fff;
+		margin:0;
+		position:relative;
+		z-index: 2;
+	}
+	@media screen and (min-width: $screen-tablet){
+		min-height: 400px;
+		height: 400px;
+	}
+	@media screen and (min-width: $screen-desktop-xs){
+		padding:6rem 4rem;
+		min-height: 600px;
+		height: 600px;
+	}
+}
+.parallax-mirror {
+    z-index:1
+}
 .ert-product-list-switcher{
 	display: flex;
 	flex-direction: row;
@@ -189,9 +246,11 @@ section{
 	    color: #d50032;
 	    line-height: 1;
 	    font-weight: 700;
-	    position: relative;
+	    position: absolute;
+	    left: 50%;
+	    margin-left:-150px;
 	    width: 300px;
-	    margin:auto;
+	    // /margin:auto;
 	    text-align: center;
 	    line-height:38px;
 	    min-height: 38px;
@@ -217,13 +276,15 @@ section{
 	}
 	@media screen and (min-width: $screen-desktop-xs){
 		padding:1rem;
-		margin-top: 40px;
-		margin-bottom: 100px;
+		margin-top:0;
+		min-height: 70px;
+		margin-bottom:60px;
 	}
 	@media screen and (max-width: $screen-mobile){
 		.title{
 			width: 200px;
 			max-width: 200px;
+		    margin-left:-100px;
 		}
 		.switch-prev,.switch-next{
 			>span{ display: none }
@@ -233,11 +294,19 @@ section{
 }
 
 .ert-btn-container{
-	margin-bottom:60px;
+	margin-bottom:1rem;
+	position: relative;
+	.left,.right{
+		position:absolute;
+	}
+	.left{ top:-3.5rem; left:0 }
+	@media screen and (max-width: $screen-tablet){
+		margin-bottom:0;
+		.left{ left:-2rem; top:1rem; }
+	}
 	@media screen and (max-width: $screen-mobile){
-	    margin-bottom: 50px;
-   		margin-top: 30px;
-   	}
+		.left{ top:0;left:-1.95rem; }
+	}
 }
 
 .iframe-video{
@@ -251,4 +320,13 @@ section{
 	}
 }
 
-
+.ert-events-card{
+	@media screen and (max-width: $screen-tablet){
+		.card{
+			 margin-bottom: 60px;
+		}
+		.card-img-outer{
+			padding-bottom:65%
+		}
+	}
+}
