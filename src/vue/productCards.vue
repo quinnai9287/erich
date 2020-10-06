@@ -7,7 +7,7 @@
                 <img :src="domain+item.productPicture.urls" :alt="item.productTitle" class="card-img"></img>
             </a>
             <a class="card-title-link" :href="domain+'/product/'+item.path"><h4 class="card-title">{{ item.productTitle }}</h4></a>
-            <p class="card-summary">{{ item.productPrice }}</p>
+            <p class="card-time">{{ item.productPrice }}</p>
             </div>
       </div>
     </div>

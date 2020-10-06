@@ -47,8 +47,8 @@ require(["Vue","Axios", "vue!productCategory" , "vue!productCards"], function(Vu
 
 		let taxonomy = {
 
-				_gql: `query{
-				  # 商品分類按鈕
+
+				_gql: `query ProductCategory {
 				  taxonomy(where: {alias: {alias: "product-category"}}) {
 				    displayText
 				    alias {
@@ -59,12 +59,16 @@ require(["Vue","Axios", "vue!productCategory" , "vue!productCards"], function(Vu
 				        ... on Category {
 				          displayText
 				          path
+				          englishTitle
+				          icon {
+				            urls
+				          }
 				        }
-				        contentItemId
 				      }
 				    }
 				  }
 				}`,
+
 
 		}
 

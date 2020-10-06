@@ -1,4 +1,5 @@
-//index.js 2020-07-23
+//index.js 2020-08-22
+
 require(["Vue", "vue!myslick", "vue!productCategory" , "vue!eventCards" , "vue!productCards"], function(Vue){
 
 	let vm = new Vue({
@@ -148,24 +149,28 @@ require(["Vue", "vue!myslick", "vue!productCategory" , "vue!eventCards" , "vue!p
 
 		let taxonomy = {
 
-				_gql: `query{
-				  # 商品分類按鈕
-				  taxonomy(where: {alias: {alias: "product-category"}}) {
-				    displayText
-				    alias {
-				      alias
-				    }
-				    taxonomy {
-				      contentItems {
-				        ... on Category {
-				          displayText
-				          path
-				        }
-				        contentItemId
-				      }
-				    }
-				  }
-				}`,
+
+			_gql: `query ProductCategory {
+			  taxonomy(where: {alias: {alias: "product-category"}}) {
+			    displayText
+			    alias {
+			      alias
+			    }
+			    taxonomy {
+			      contentItems {
+			        ... on Category {
+			          displayText
+			          path
+			          englishTitle
+			          icon {
+			            urls
+			          }
+			        }
+			      }
+			    }
+			  }
+			}`,
+
 
 		}
 
@@ -254,30 +259,12 @@ require(["Vue", "vue!myslick", "vue!productCategory" , "vue!eventCards" , "vue!p
 
 		fetchingAPI(config.fetchOption,taxonomy).then( data => {
 
-			//console.log("data=", data.taxonomy[0].taxonomy.contentItems )
+			console.log("data=", data.taxonomy[0].taxonomy.contentItems )
 
 			vm.taxonomy = data.taxonomy[0].taxonomy.contentItems
 			
 		})
 
-
-
-
-		setTimeout(function(){
-
-			let parallaxWindow = $('.parallax-window')
-
-			parallaxWindow.each(function(){
-
-
-				let src = $(this).attr('data-img-src');
-				$(this).parallax({imageSrc: src})
-
-
-			})
-	
-		},1000)
-		 
 		
 
 	}

@@ -1,0 +1,61 @@
+//icons.scss
+
+
+.icon{
+	display: inline-block;
+	background-size: 100% 200%;
+	background-repeat:no-repeat;
+	margin-right:.25rem;
+	flex:0 0 auto;
+	@media screen and (min-width: $screen-tablet){
+		margin-right:.5rem;
+	}
+}
+
+.icon-latest{
+	width: 16px;
+	height: 16px;
+	background-position:0 100%;
+	background-image:url('/ERICHWeb/img/icons/star@2x.png');
+}
+
+.icon-hot{
+	width: 16px;
+	height: 16px;
+	background-position:0 100%;
+	background-image:url('/ERICHWeb/img/icons/like@2x.png');
+}
+
+
+.icon-toast{
+	width: 18px;
+	height: 15px;
+	background-position:0 100%;
+	background-image:url('/ERICHWeb/img/icons/toast@2x.png');
+}
+
+.icon-cake{
+	width: 14px;
+	height: 17px;
+	background-position:0 100%;
+	background-image:url('/ERICHWeb/img/icons/cake@2x.png');
+}
+
+.icon-gift{
+	width: 14px;
+	height: 17px;
+	background-position:0 100%;
+	background-image:url('/ERICHWeb/img/icons/bag@2x.png');
+}
+
+a{
+	&:hover{
+		.icon-latest,
+		.icon-hot,
+		.icon-cake,
+		.icon-toast,
+		.icon-gift{
+			background-position:0 0;
+		}
+	}
+}

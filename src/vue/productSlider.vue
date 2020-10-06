@@ -6,7 +6,7 @@
                     <img :src="domain+slide.productPicture.urls" :alt="slide.productTitle" class="card-img"></img>
                 </a>
                 <a class="card-title-link" :href="domain+slide.path"><h4 class="card-title">{{ slide.productTitle }}</h4></a>
-                <p class="card-summary">{{ slide.productPrice }}</p>
+                <p class="card-time">{{ slide.productPrice }}</p>
             </div>
           </div>
       </div>
@@ -21,7 +21,7 @@
               return {
                  sliderOptions: {
                   dots: true,
-                  arrows: true,
+                  arrows: false,
                   mobileFirst: true,
                   infinite: false,
                   slidesToShow: 2,

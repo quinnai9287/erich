@@ -6,6 +6,7 @@
 @import 'app/buttons';
 @import 'app/carousel';
 @import 'app/article';
+@import 'app/icons';
 @import 'app/stores';
 
 body{
@@ -85,6 +86,8 @@ section{
 	margin-bottom: 30px;
 	line-height: 1;
 	font-weight: 400;
+	letter-spacing: 3px;
+	font-family: 'Noto Sans TC',sans-serif;
 	&.large-space{
 		margin-top:30px;
 		margin-bottom: 60px;
@@ -107,6 +110,7 @@ section{
 	}
 	@media screen and (min-width: $screen-tablet){
 		margin-bottom: 60px;
+		font-size: 2rem;
 		&.large-space{
 			margin-top:0;
 			margin-bottom: 60px;
@@ -212,6 +216,10 @@ section{
     position:relative;
     flex-flow:column wrap;
     text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    &.small-window{
+    	height: 150px;
+    	min-height: 150px;
+    }
 	.section-title.noto-thin, .section-title.noto-thin+.section-subtitle{
 		color:#fff;
 		margin:0;
@@ -221,11 +229,19 @@ section{
 	@media screen and (min-width: $screen-tablet){
 		min-height: 400px;
 		height: 400px;
+		&.small-window{
+			min-height: 250px;
+			height: 250px;
+		}
 	}
 	@media screen and (min-width: $screen-desktop-xs){
 		padding:6rem 4rem;
 		min-height: 600px;
 		height: 600px;
+	    &.small-window{
+	    	height:350px;
+	    	min-height:350px;
+	    }
 	}
 }
 .parallax-mirror {

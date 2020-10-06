@@ -2,7 +2,7 @@
 		@@include('_navbar.html') 
 		<main id="vueapp" class="index-navbar-hollow" v-bind:class="{ 'vue-initialized' : init }">
 			<section class="ert-carousel-container">
-				<slick-slider class="ert-carousel slick" :slides="slick.kv" :domain="domain" data-autoplay-speed="4000" data-autoplay="true" data-dots="true"></slick-slider>
+				<slick-slider class="ert-carousel slick" :slides="slick.kv" :domain="domain"></slick-slider>
 				<a id="BtnSeeMore" class="arrow-btn see-more-btn" href="javascript:;"></a>
 			</section>
 		    <section class="section">
@@ -34,21 +34,14 @@
 		    </div>
 		    <section class="section">
 		    	<div class="container">
-	        		<div class="section-title ">瀏覽其他商品</div><!-- 
-	        		<product-category :btns="taxonomy" :domain="domain"></product-category> -->
-	        	<div class="image-buttons">
-	        		<div><a class="img-background-btn" style="background-image: url(https://erich-t.blockcode.com.tw/media/2_Product/C6/蛋糕盒/JustinSelect2.JPG)" href="#"><span>最新商品</span></a></div>
-	        		<div><a class="img-background-btn" style="background-image:url(https://erich-t.blockcode.com.tw/media/1_Event/202008/2008_中秋典藏1.jpg)" href="#"><span>熱門商品</span></a></div>
-	        		<div><a class="img-background-btn" style="background-image: url(https://erich-t.blockcode.com.tw/media/2_Product/C2/特濃牛乳吐司/JustinSelect1.JPG)" href="#"><span>吐司麵包</span></a></div>
-	        		<div><a class="img-background-btn" style="background-image: url(https://erich-t.blockcode.com.tw/media/9_Misc/IMG_7240.JPG)" href="#"><span>西點蛋糕</span></a></div>
-	        		<div><a class="img-background-btn" style="background-image: url(https://erich-t.blockcode.com.tw/media/1_Event/202008/2008_蛋黃酥3.JPG)" href="#"><span>伴手禮</span></a></div>
-	        	</div>
+	        		<div class="section-title ">瀏覽其他商品</div>
+	        		<product-category :btns="taxonomy" :domain="domain"></product-category>
 	        	</div>
 		    </section>
 		</main>
 		@@include('_footer.html') 
 		@@include('_footjs.html') 
 
-		<script type="text/javascript" src="/ERICHWeb/js/index.js?0819"></script>
+		<script type="text/javascript" src="/ERICHWeb/js/index.js?0825"></script>
 
 @@include('_html-foot.html') 

@@ -1,4 +1,4 @@
-//eventIndex.js 2020-07-23
+//index.js 2020-08-22
 require(["Vue", "vue!productCategory" , "vue!eventCards" ], function(Vue){
 
 	let vm = new Vue({
@@ -71,8 +71,7 @@ require(["Vue", "vue!productCategory" , "vue!eventCards" ], function(Vue){
 
 		let taxonomy = {
 
-				_gql: `query{
-				  # 商品分類按鈕
+				_gql: `query ProductCategory {
 				  taxonomy(where: {alias: {alias: "product-category"}}) {
 				    displayText
 				    alias {
@@ -83,8 +82,11 @@ require(["Vue", "vue!productCategory" , "vue!eventCards" ], function(Vue){
 				        ... on Category {
 				          displayText
 				          path
+				          englishTitle
+				          icon {
+				            urls
+				          }
 				        }
-				        contentItemId
 				      }
 				    }
 				  }

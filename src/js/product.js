@@ -78,8 +78,8 @@ require(["Vue", "vue!productCategory" , "vue!productSlider", "vue!gallerySlider"
 
 		let taxonomy = {
 
-				_gql: `query{
-				  # 商品分類按鈕
+
+				_gql: `query ProductCategory {
 				  taxonomy(where: {alias: {alias: "product-category"}}) {
 				    displayText
 				    alias {
@@ -90,12 +90,16 @@ require(["Vue", "vue!productCategory" , "vue!productSlider", "vue!gallerySlider"
 				        ... on Category {
 				          displayText
 				          path
+				          englishTitle
+				          icon {
+				            urls
+				          }
 				        }
-				        contentItemId
 				      }
 				    }
 				  }
 				}`,
+
 
 		}
 

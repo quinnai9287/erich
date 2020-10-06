@@ -1,12 +1,10 @@
 @@include('_head-meta.html') 
 		<main id="vueapp" v-bind:class="{ 'vue-initialized' : init }">
 			@@include('_navbar.html') 
+			<div class="parallax-window small-window" data-image-src="/ERICHWeb/img/article/articleimg_01.jpg"></div>
 			<section class="section">
 				<h6 class="sr-only d-none">活動內容</h6>
 				<div class="container">
-					<div class="ert-btn-container">
-						<a class="arrow-btn left" href=""></a>
-					</div>
 					<article class="ert-article-container">
 						<div class="ert-article">
 							<h1 class="title">浪漫早午餐攻略</h1>
@@ -45,9 +43,7 @@
 								【鹽】  1小撮</p>
 
 								<p>
-									<div class="iframe-video">
-										<iframe src="https://www.youtube.com/embed/8ZM3GuRnV5A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-									</div>
+										<iframe src="https://www.youtube.com/embed/8ZM3GuRnV5A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" width="400" allowfullscreen></iframe>
 								</p>
 
 								<p>
@@ -76,16 +72,6 @@
 					</article>
 				</div>
 			</section>
-		    <section class="section">
-		    	<h6 class="sr-only d-none">用烘培拉近你我的關係</h6>
-		    	<div class="container">
-		    		<div class="section-title noto-thin">${ about.aboutTitle }</div>
-		    		<div class="section-subtitle large-space">${ about.aboutSubtitle }</div>
-		    		<div class="custom-image-layout">
-		    			<div v-for="url in about.abountContentMedia"><img :src="'https://erich-t.blockcode.com.tw'+url" alt=""></div>
-		    		</div>
-		    	</div>
-		    </section>
 		    <section class="section bg-grey">
 		    	<div class="container">
 		    		<h3 class="section-title">相關產品</h3>

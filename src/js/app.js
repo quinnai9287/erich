@@ -1,5 +1,4 @@
-//app.js 2020-08-04
-//app.js 2020-07-23
+//app.js 2020-08-26
 
 function initNavbar(){
 
@@ -13,6 +12,22 @@ function initNavbar(){
 	let  threshhold = navbar.outerHeight()
 
 	let defaultScrollTop = $(window).scrollTop()
+
+
+    function initParallaxWindow(object){
+
+        object.each(function(){
+
+
+            let src = $(this).attr('data-img-src');
+            $(this).parallax({imageSrc: src})
+
+
+        })
+
+
+    }
+        
 
     function setupItems(){
 
@@ -88,7 +103,7 @@ function initNavbar(){
     		navbar.addClass('navbar-solid')
     	}
 
-        
+
         $(window).scroll(function(){
 
             let y = $(window).scrollTop();      
@@ -105,12 +120,32 @@ function initNavbar(){
 		
     }
 
+    function article(){
+
+        const article = $('.ert-article')
+        const iframe = article.find('iframe')
+
+
+        iframe.attr({'width':'auto','height':'auto'}).wrap('<div class="iframe-video"></div>')
+
+    }
+
     function init(){
 
         setupItems()
         setupEvents()
+        article()
         handleNavSolid()
         addEventListener()
+
+
+        setTimeout(function(){
+
+            let parallaxWindow = $('.parallax-window')
+
+            initParallaxWindow(parallaxWindow)
+    
+        },1000)
 
     }
 
